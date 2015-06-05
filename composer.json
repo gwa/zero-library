@@ -23,13 +23,17 @@
     },
     "require-dev": {
         "fabpot/php-cs-fixer"                           : "~1.8.1",
-        "phpunit/phpunit"                               : "~4.7",
+        "phpunit/phpunit"                               : "~4.7"
     },
     "autoload": {
         "psr-4": {
-            "Gwa\\Wordpress\\Template\\Zero\\Library\\" : "src/",
+            "Gwa\\Wordpress\\Template\\Zero\\Library\\" : "src/"
         }
     },
+    "repositories": [{
+        "type": "composer",
+        "url" : "http://wpackagist.org"
+    }],
     "extra": {
         "installer-name": "zero-library"
     }

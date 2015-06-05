@@ -35,6 +35,9 @@
         "url" : "http://wpackagist.org"
     }],
     "extra": {
-        "installer-name": "zero-library"
+        "installer-name": "zero-library",
+        "branch-alias": {
+            "dev-master"                     : "1.0.0-dev"
+        }
     }
 }

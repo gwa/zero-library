@@ -62,7 +62,7 @@ abstract class AbstractController
      */
     public function __construct()
     {
-        if (!class_exists('Timber')) {
+        if (!class_exists('TimberLoader')) {
             throw new RuntimeException(
                 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>'
             );

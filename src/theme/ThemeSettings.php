@@ -173,6 +173,8 @@ class ThemeSettings extends TimberSite
         add_action('init', [$this, 'wpHeadCleanup']);
         add_action('after_setup_theme', [$this, 'afterSetupTheme']);
 
+        add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
+
         (new TwigFilter())->init();
 
         add_filter('the_generator', [$this, 'removeRssVersion']);

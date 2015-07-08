@@ -161,7 +161,7 @@ abstract class AbstractController
      *
      * @return \Timber
      */
-    public function getPost(array $args = null)
+    public function getPost($args = null)
     {
         return Timber::get_post(($args !== null) ?: false, new Post());
     }
@@ -173,7 +173,7 @@ abstract class AbstractController
      *
      * @return \Timber
      */
-    public function getPosts(array $args = null)
+    public function getPosts($args = null)
     {
         return Timber::get_posts(($args !== null) ?: false, new Post());
     }

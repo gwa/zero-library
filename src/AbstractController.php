@@ -156,25 +156,29 @@ abstract class AbstractController
      *
      * Works the same as AbstractController::addPostsToContext but limited to one post as the return object.
      *
-     * @param null|string[] $args
+     * @param null|string[]|boolean $args
+     * @param string|null   $postClass
      *
      * @return \Timber
      */
-    public function getPost($args = false)
+    public function getPost($args = false, $postClass = null)
     {
-        return Timber::get_post((!$args) ? $args : false, '\Gwa\Wordpress\Template\Zero\Library\Timber\Post');
+        $post = $postClass ?: '\Gwa\Wordpress\Template\Zero\Library\Timber\Post';
+        return Timber::get_post((!$args) ? $args : false, $post);
     }
 
     /**
      * Get Posts
      *
-     * @param null|string[] $args
+     * @param null|string[]|boolean $args
+     * @param string|null   $postClass
      *
      * @return \Timber
      */
-    public function getPosts($args = false)
+    public function getPosts($args = false, $postClass = null)
     {
-        return Timber::get_posts((!$args) ? $args : false, '\Gwa\Wordpress\Template\Zero\Library\Timber\Post');
+        $post = $postClass ?: '\Gwa\Wordpress\Template\Zero\Library\Timber\Post';
+        return Timber::get_posts((!$args) ? $args : false, $post);
     }
 
     /**

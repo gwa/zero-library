@@ -23,62 +23,46 @@ use TimberPost;
  */
 class Post extends TimberPost
 {
-    public function get_edit_url()
+    public function getEditUrl()
     {
         return ($this->can_edit() ? get_edit_post_link($this->ID) : false);
     }
 
     /**
-     * @param  string $date_format
+     * @param  string $dateFormat
      *
      * @return string
      */
-        public function get_date($date_format = '')
-        {
-            $df = $date_format ? $date_format : get_option('date_format');
-            $the_date = (string) mysql2date($df, $this->post_date);
+    public function getDate($dateFormat = '')
+    {
+        $df = $dateFormat ? $dateFormat : get_option('date_format');
+        $theDate = (string) mysql2date($df, $this->post_date);
 
-            return apply_filters('get_the_date', $the_date, $date_format);
-        }
+        return apply_filters('get_the_date', $theDate, $dateFormat);
+    }
 
-        /**
-         * @param  string $date_format
-         * @return string
-         */
-        public function get_modified_date($date_format = '')
-        {
-            $df = $date_format ? $date_format : get_option('date_format');
-            $the_time = $this->get_modified_time($df, null, $this->ID, true);
+    /**
+     * @param  string $dateFormat
+     * @return string
+     */
+    public function getModifiedDate($dateFormat = '')
+    {
+        $df = $dateFormat ? $dateFormat : get_option('date_format');
+        $theTime = $this->getModifiedTime($df, null, $this->ID, true);
 
-            return apply_filters('get_the_modified_date', $the_time, $date_format);
-        }
+        return apply_filters('get_the_modified_date', $theTime, $dateFormat);
+    }
 
-        /**
-         * @param string $time_format
-         *
-         * @return string
-         */
-        public function get_modified_time($time_format = '')
-        {
-            $tf = $time_format ? $time_format : get_option('time_format');
-            $the_time = get_post_modified_time($tf, false, $this->ID, true);
+    /**
+     * @param string $timeFormat
+     *
+     * @return string
+     */
+    public function getModifiedTime($timeFormat = '')
+    {
+        $tf = $timeFormat ? $timeFormat : get_option('time_format');
+        $theTime = get_post_modified_time($tf, false, $this->ID, true);
 
-            return apply_filters('get_the_modified_time', $the_time, $time_format);
-        }
-
-        /**
-         * @return string
-         */
-        public function date($date_format = '')
-        {
-            return $this->get_date($date_format);
-        }
-
-        /**
-         * @return string
-         */
-        public function modified_date($date_format = '')
-        {
-            return $this->get_modified_date($date_format);
-        }
+        return apply_filters('get_the_modified_time', $theTime, $timeFormat);
+    }
 }

@@ -163,7 +163,7 @@ abstract class AbstractController
      */
     public function getPost($args = false, $postClass = null)
     {
-        $post = $postClass ?: '\Gwa\Wordpress\Template\Zero\Library\Timber\Post';
+        $post = $postClass ?: '\TimberPost';
         return Timber::get_post((!$args) ? $args : false, $post);
     }
 
@@ -172,13 +172,14 @@ abstract class AbstractController
      *
      * @param null|string[]|boolean $args
      * @param string|null   $postClass
+     * @param boolean       $collection
      *
      * @return \Timber
      */
-    public function getPosts($args = false, $postClass = null)
+    public function getPosts($args = false, $postClass = null, $collection = false)
     {
-        $post = $postClass ?: '\Gwa\Wordpress\Template\Zero\Library\Timber\Post';
-        return Timber::get_posts((!$args) ? $args : false, $post);
+        $post = $postClass ?: '\TimberPost';
+        return Timber::get_posts((!$args) ? $args : false, $post, $collection);
     }
 
     /**

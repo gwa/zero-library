@@ -13,7 +13,6 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  * @license     MIT
  */
 
-use Gwa\Wordpress\Template\Zero\Library\Timber\Post;
 use LogicException;
 use RuntimeException;
 use Timber;
@@ -161,9 +160,9 @@ abstract class AbstractController
      *
      * @return \Timber
      */
-    public function getPost($args = null)
+    public function getPost($args = false)
     {
-        return Timber::get_post(($args !== null) ?: false, new Post());
+        return Timber::get_post((!$args) ? $args : false, '\Gwa\Wordpress\Template\Zero\Library\Timber\Post');
     }
 
     /**
@@ -173,9 +172,9 @@ abstract class AbstractController
      *
      * @return \Timber
      */
-    public function getPosts($args = null)
+    public function getPosts($args = false)
     {
-        return Timber::get_posts(($args !== null) ?: false, new Post());
+        return Timber::get_posts((!$args) ? $args : false, '\Gwa\Wordpress\Template\Zero\Library\Timber\Post');
     }
 
     /**

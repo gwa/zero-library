@@ -156,30 +156,28 @@ abstract class AbstractController
      *
      * Works the same as AbstractController::addPostsToContext but limited to one post as the return object.
      *
-     * @param null|string[]|boolean $args
-     * @param string|null   $postClass
+     * @param string[]|boolean $args
+     * @param string           $postClass
      *
      * @return \Timber
      */
-    public function getPost($args = false, $postClass = null)
+    public function getPost($args = false, $postClass = '\TimberPost')
     {
-        $post = $postClass ?: '\TimberPost';
-        return Timber::get_post((!$args) ? $args : false, $post);
+        return Timber::get_post($args, $post);
     }
 
     /**
      * Get Posts
      *
-     * @param null|string[]|boolean $args
-     * @param string|null   $postClass
-     * @param boolean       $collection
+     * @param string[]|boolean $args
+     * @param string           $postClass
+     * @param boolean          $collection
      *
      * @return \Timber
      */
-    public function getPosts($args = false, $postClass = null, $collection = false)
+    public function getPosts($args = false, $postClass = '\TimberPost', $collection = false)
     {
-        $post = $postClass ?: '\TimberPost';
-        return Timber::get_posts((!$args) ? $args : false, $post, $collection);
+        return Timber::get_posts($args, $post, $collection);
     }
 
     /**

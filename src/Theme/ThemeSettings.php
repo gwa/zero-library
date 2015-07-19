@@ -222,7 +222,7 @@ class ThemeSettings extends TimberSite
             'is_attachment'        => is_attachment(),
             'is_singular'          => is_singular(),
             'template_uri'         => get_template_directory_uri(),
-            'single_cat_title'     => single_cat_title(),
+            'single_cat_title'     => single_cat_title('', false),
         ];
     }
 }

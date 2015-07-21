@@ -154,28 +154,52 @@ abstract class AbstractController
     /**
      * Get Post
      *
-     * Works the same as AbstractController::addPostsToContext but limited to one post as the return object.
-     *
-     * @param string[]|boolean $args
      * @param string           $postClass
      *
      * @return \Timber
      */
-    public function getPost($args = false, $postClass = '\TimberPost')
+    public function getPost($postClass = '\TimberPost')
+    {
+        return Timber::get_post(false, $postClass);
+    }
+
+    /**
+     * Get Post on some parameters
+     *
+     * @param string[] $args
+     * @param string   $postClass
+     *
+     * @return \Timber
+     */
+    public function getPostForArgs($args, $postClass = '\TimberPost')
     {
         return Timber::get_post($args, $postClass);
     }
 
+
     /**
      * Get Posts
      *
-     * @param string[]|boolean $args
      * @param string           $postClass
      * @param boolean          $collection
      *
      * @return \Timber
      */
-    public function getPosts($args = false, $postClass = '\TimberPost', $collection = false)
+    public function getPosts($postClass = '\TimberPost', $collection = false)
+    {
+        return Timber::get_posts(false, $postClass, $collection);
+    }
+
+    /**
+     * Get Posts on some parameters
+     *
+     * @param string[] $args
+     * @param string   $postClass
+     * @param boolean  $collection
+     *
+     * @return \Timber
+     */
+    public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
     {
         return Timber::get_posts($args, $postClass, $collection);
     }
@@ -187,12 +211,14 @@ abstract class AbstractController
      */
     public function render()
     {
+        $context = $this->getContext();
+
         $this->validateTemplates($this->getTemplates());
-        $this->validateContext($this->getContext());
+        $this->validateContext($context);
 
         Timber::render(
             $this->getTemplates(),
-            array_merge(Timber::get_context(), $this->getContext()),
+            array_merge(Timber::get_context(), $context),
             // False disables cache altogether.
             ($this->getCacheExpiresSecond() ?: false),
             $this->getCacheMode()

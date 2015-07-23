@@ -33,35 +33,11 @@ class ThemeSettings extends TimberSite
      */
     public function addToContext($data)
     {
-        $context = [];
+        $context = [
+            'site' => $this;
+        ];
 
-        $context['header_menu'] = new TimberMenu('header-menu');
-        $context['footer_menu'] = new TimberMenu('footer-menu');
-
-        $context['site'] = $this;
-
-        return array_merge($context, $data, $this->wpConditionals());
-    }
-
-    /**
-     * Load all funcs after theme setup
-     */
-    public function afterSetupTheme()
-    {
-        load_theme_textdomain('zero', get_template_directory().'/languages');
-    }
-
-    /**
-     * Register Menus
-     */
-    public function registerMenuLocation()
-    {
-        register_nav_menus(
-            [
-                'header-menu' => __('Header Menu', 'zero'),
-                'footer-menu' => __('Footer Menu', 'zero')
-            ]
-        );
+        return array_merge($context, $data);
     }
 
     /**
@@ -149,15 +125,29 @@ class ThemeSettings extends TimberSite
      * Wrap images with figure tag.
      * Courtesy of Interconnectit http://interconnectit.com/2175/how-to-remove-p-tags-from-images-in-wordpress/
      *
-     * @param string $figure
+     * @param string $content
      *
      * @return string
      */
-    public function wrapImgInFigure($figure)
+    public function wrapImgInFigure($content)
     {
-        $figure = preg_replace('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', '<figure>$1</figure>', $figure);
+        $callback = function($matches) {
+            $img = $matches[1];
+            preg_match('/ class="([^"]+)"/', $img, $imgClass);
 
-        return $figure;
+            $class = '';
+
+            if (isset($imgClass[1])) {
+                $img   = preg_replace($pattern, '', $img);
+                $class = ' class="' . $imgClass[1] . '"';
+            }
+
+            return '<figure' . $class . '>' . $img . '</figure>';
+        };
+
+        $content = preg_replace_callback('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', $callback, $content);
+
+        return $content;
     }
 
     /**
@@ -169,9 +159,7 @@ class ThemeSettings extends TimberSite
         add_theme_support('post-thumbnails');
         add_theme_support('menus');
 
-        add_action('init', [$this, 'registerMenuLocation']);
         add_action('init', [$this, 'wpHeadCleanup']);
-        add_action('after_setup_theme', [$this, 'afterSetupTheme']);
 
         add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
 
@@ -191,7 +179,7 @@ class ThemeSettings extends TimberSite
      *
      * @return array
      */
-    protected function wpConditionals()
+    public function wpConditionals()
     {
         return [
             'is_home'              => is_home(),

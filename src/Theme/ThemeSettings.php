@@ -131,7 +131,7 @@ class ThemeSettings extends TimberSite
      */
     public function wrapImgInFigure($content)
     {
-        $callback = function($matches) {
+        $callback = function ($matches) {
             $img = $matches[1];
             preg_match('/ class="([^"]+)"/', $img, $imgClass);
 

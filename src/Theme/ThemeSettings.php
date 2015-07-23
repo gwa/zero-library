@@ -34,7 +34,7 @@ class ThemeSettings extends TimberSite
     public function addToContext($data)
     {
         $context = [
-            'site' => $this;
+            'site' => $this,
         ];
 
         return array_merge($context, $data);

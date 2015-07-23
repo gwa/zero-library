@@ -133,7 +133,8 @@ class ThemeSettings extends TimberSite
     {
         $callback = function ($matches) {
             $img = $matches[1];
-            preg_match('/ class="([^"]+)"/', $img, $imgClass);
+            $pattern = '/ class="([^"]+)"/';
+            preg_match($pattern, $img, $imgClass);
 
             $class = '';
 

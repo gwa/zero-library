@@ -18,7 +18,7 @@ To get the latest version of Zero theme, simply add the following line to the re
 ~~~json
 {
     "require": {
-        "gwa/zero" : "~2.0.0"
+        "gwa/zero" : "~3.0.0"
     }
 }
 ~~~

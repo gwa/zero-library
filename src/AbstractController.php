@@ -156,7 +156,7 @@ abstract class AbstractController
      *
      * @param string $postClass
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPost($postClass = '\TimberPost')
     {
@@ -169,7 +169,7 @@ abstract class AbstractController
      * @param string[] $args
      * @param string   $postClass
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPostForArgs($args, $postClass = '\TimberPost')
     {
@@ -182,7 +182,7 @@ abstract class AbstractController
      * @param string  $postClass
      * @param boolean $collection
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPosts($postClass = '\TimberPost', $collection = false)
     {
@@ -196,7 +196,7 @@ abstract class AbstractController
      * @param string   $postClass
      * @param boolean  $collection
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
     {

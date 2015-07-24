@@ -3,7 +3,7 @@
 namespace Gwa\Wordpress\Template\Zero\Library\Theme;
 
 /**
- * Zero - a PHP 5.4 Wordpress Theme.
+ * Zero Library.
  *
  * @author      Daniel Bannert <bannert@greatwhiteark.com>
  * @copyright   2015 Great White Ark

@@ -3,7 +3,7 @@
 namespace Gwa\Wordpress\Template\Zero\Library;
 
 /**
- * Zero - a PHP 5.4 Wordpress Theme.
+ * Zero Library.
  *
  * @author      Daniel Bannert <bannert@greatwhiteark.com>
  * @copyright   2015 Great White Ark
@@ -154,12 +154,10 @@ abstract class AbstractController
     /**
      * Get Post
      *
-     * Works the same as AbstractController::addPostsToContext but limited to one post as the return object.
-     *
      * @param string[]|boolean $args
      * @param string           $postClass
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPost($args = false, $postClass = '\TimberPost')
     {
@@ -173,7 +171,7 @@ abstract class AbstractController
      * @param string           $postClass
      * @param boolean          $collection
      *
-     * @return \Timber
+     * @return string[]|boolean|null
      */
     public function getPosts($args = false, $postClass = '\TimberPost', $collection = false)
     {
@@ -188,7 +186,7 @@ abstract class AbstractController
     public function render()
     {
         $context = $this->getContext();
-        
+
         $this->validateTemplates($this->getTemplates());
         $this->validateContext($context);
 

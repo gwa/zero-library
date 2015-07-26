@@ -152,6 +152,30 @@ class ThemeSettings extends TimberSite
     }
 
     /**
+     * Add id columns to column posts
+     *
+     * @param array $defaults
+     */
+    function addPostsColumnsId($defaults)
+    {
+        $defaults['date column-id'] = __('ID');
+        return $defaults;
+    }
+
+    /**
+     * Add id columns to custom column post
+     *
+     * @param string $columnName
+     * @param string $id
+     */
+    function addPostsCustomIdColumns($columnName, $id)
+    {
+        if ($columnName === 'date column-id') {
+            echo $id;
+        }
+    }
+
+    /**
      * Init
      */
     public function init()
@@ -162,9 +186,15 @@ class ThemeSettings extends TimberSite
 
         add_action('init', [$this, 'wpHeadCleanup']);
 
+        add_action('manage_posts_custom_column', [$this, 'addPostsCustomIdColumns'], 5, 2);
+        add_action('manage_pages_custom_column', [$this, 'addPostsCustomIdColumns'], 5, 2);
+
         add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
 
         (new TwigFilter())->init();
+
+        add_filter('manage_posts_columns', [$this, 'addPostsColumnsId'], 5);
+        add_filter('manage_pages_columns', [$this, 'addPostsColumnsId'], 5);
 
         add_filter('the_generator', [$this, 'removeRssVersion']);
         add_filter('get_image_tag_class', [$this, 'imageTagClassClean'], 0, 4);

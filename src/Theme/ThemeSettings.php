@@ -178,7 +178,7 @@ class ThemeSettings extends TimberSite
     /**
     * Return the ID for the column
     */
-    public function AddColumnReturnValue($value, $columName, $id)
+    public function addColumnReturnValue($value, $columName, $id)
     {
         if ($columName === 'date column-id') {
             $value = $id;
@@ -213,9 +213,9 @@ class ThemeSettings extends TimberSite
 
         add_filter('manage_media_columns', [$this, 'addColumnId']);
         add_filter('manage_link-manager_columns', [$this, 'addColumnId']);
-        add_filter('manage_link_categories_custom_column', [$this, 'AddColumnReturnValue'], 10, 3);
-        add_filter('manage_users_custom_column', [$this, 'AddColumnReturnValue'], 10, 3);
-        add_filter("manage_edit-comments_sortable_columns", [$this, 'addColumnId']);
+        add_filter('manage_link_categories_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        add_filter('manage_users_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        add_filter('manage_edit-comments_sortable_columns', [$this, 'addColumnId']);
     }
 
     /**
@@ -223,7 +223,9 @@ class ThemeSettings extends TimberSite
      */
     public function init()
     {
-        if (version_compare($GLOBALS['wp_version'], '4.1.0', '<')) {
+        global $wp_version;
+
+        if (version_compare($wp_version, '4.1.0', '<')) {
             throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
         }
 

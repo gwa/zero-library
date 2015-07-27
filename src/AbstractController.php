@@ -130,7 +130,7 @@ abstract class AbstractController
     /**
      * Get cache expires seconds
      *
-     * @return boolean
+     * @return integer
      */
     public function getCacheExpiresSecond()
     {

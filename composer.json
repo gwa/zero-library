@@ -33,10 +33,14 @@
             "Gwa\\Wordpress\\Template\\Zero\\Library\\"        : "src/"
         }
     },
-    "autoload": {
+    "autoload-dev": {
         "psr-4": {
             "Gwa\\Wordpress\\Template\\Zero\\Library\\Tests\\" : "tests/"
-        }
+        },
+        "classmap": [
+            "wp-content/plugins/timber-library",
+            "wp-content/plugins/soil"
+        ]
     },
     "repositories": [{
         "type": "composer",

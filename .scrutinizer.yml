@@ -99,9 +99,7 @@ build:
             - 'composer install'
 
 tools:
-    external_code_coverage:
-        timeout: 600
-        runs: 3
+    external_code_coverage:      false
     php_changetracking:          true
 
     php_code_sniffer:

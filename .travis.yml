@@ -52,5 +52,3 @@ script:
   # - vendor/bin/phpunit
   - vendor/bin/php-cs-fixer --diff --dry-run -vv fix
   - php -n security-checker.phar security:check --format=simple
-  - vendor/bin/phpunit --verbose --coverage-text --coverage-clover=build/logs/coverage.clover
-  - if [ $(phpenv version-name) = $OCULAR_ENV ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi

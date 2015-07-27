@@ -207,7 +207,7 @@ class ThemeSettings extends TimberSite
     /**
      * Adds a id column on all admin pages
      */
-    public function addIdCollumns()
+    public function addIdColumn()
     {
         foreach (get_taxonomies() as $taxonomy) {
             $this->getWPBridge()->addAction("manage_edit-${taxonomy}_columns", [$this, 'addColumnId']);
@@ -246,8 +246,6 @@ class ThemeSettings extends TimberSite
             throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
         }
 
-        $this->addIdCollumns();
-
         $this->getWPBridge()->addThemeSupport('post-formats', ['aside', 'image', 'link', 'quote', 'status']);
         $this->getWPBridge()->addThemeSupport('post-thumbnails');
         $this->getWPBridge()->addThemeSupport('menus');
@@ -255,6 +253,7 @@ class ThemeSettings extends TimberSite
         // This theme supports a variety of post formats.
 
         $this->getWPBridge()->addAction('init', [$this, 'wpHeadCleanup']);
+        $this->getWPBridge()->addAction('admin_init', [$this, 'addIdColumn'], 199);
 
         (new TwigFilter())->init();
 

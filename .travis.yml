@@ -2,12 +2,38 @@ language: php
 
 php:
   - 5.4
+  - 5.5.9
   - 5.5
   - 5.6
   - 7.0
   - hhvm
+  - nightly
+  - hhvm-nightly
+
+env:
+  global:
+    - setup=basic
+
+matrix:
+  include:
+    - php: 5.4
+      env: setup=lowest
+    - php: 5.4
+      env: setup=stable
+  allow_failures:
+    - env: setup=lowest
+    - env: setup=stable
+    - php: 7.0
+    - php: nightly
+    - php: hhvm
+    - php: hhvm-nightly
+  fast_finish: true
 
 sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 before_install:
   - composer self-update
@@ -17,14 +43,12 @@ before_install:
 
 install:
   - curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer.phar
+  - curl http://get.sensiolabs.org/security-checker.phar -o security-checker.phar
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-lowest --prefer-stable; fi
 
 script:
   # - vendor/bin/phpunit
   - vendor/bin/php-cs-fixer --diff --dry-run -vv fix
-  - if [ $(phpenv version-name) = $OCULAR_ENV ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
-
-matrix:
-  allow_failures:
-    - php: hhvm
-    - php: 7.0
-  fast_finish: true
+  - php -n security-checker.phar security:check --format=simple

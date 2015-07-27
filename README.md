@@ -10,6 +10,7 @@
 * [Composer](https://getcomposer.org/)
 * [Timber Library](http://upstatement.com/timber/)
 * [Soil](https://github.com/roots/soil)
+* Wordpress 4.2.1
 
 ## Installation
 

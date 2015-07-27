@@ -236,18 +236,6 @@ class ThemeSettings extends TimberSite
     }
 
     /**
-     * Makes Zero available for translation.
-     *
-     * Translations can be added to the /languages/ directory.
-     * If you're building a theme based on Zero, use a find and replace
-     * to change 'zero' to the name of your theme in all the template files.
-     */
-    public function addThemeLangSupport()
-    {
-        $this->getWPBridge()->loadThemeTextdomain('zero', get_template_directory() . '/languages');
-    }
-
-    /**
      * Init
      */
     public function init()
@@ -276,8 +264,6 @@ class ThemeSettings extends TimberSite
         $this->getWPBridge()->addFilter('the_content', [$this, 'wrapImgInFigure'], 30);
         $this->getWPBridge()->addFilter('post_thumbnail_html', [$this, 'removeImageAttributes'], 10);
         $this->getWPBridge()->addFilter('image_send_to_editor', [$this, 'removeImageAttributes'], 10);
-
-        $this->getWPBridge()->addAction('after_setup_theme', [$this, 'addThemeLangSupport']);
 
         // Should be allways last.
         $this->getWPBridge()->addFilter('timber_context', [$this, 'addToContext']);

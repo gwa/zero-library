@@ -14,6 +14,7 @@ namespace Gwa\Wordpress\Template\Zero\Library\Theme;
  */
 
 use Gwa\Wordpress\MockeryWPBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\MockeryWPBridge\Contracts\WPBridgeInterface;
 use TimberMenu;
 use TimberSite;
 
@@ -28,6 +29,16 @@ class ThemeSettings extends TimberSite
     use WpBridgeTrait;
 
     /**
+     * Lets set wpbridge.
+     *
+     * @param WPBridgeInterface $wpbridge
+     */
+    public function __construct(WPBridgeInterface $wpbridge)
+    {
+        $this->setWPBridge($wpbridge);
+    }
+
+    /**
      * Add to context
      *
      * @param array $data
@@ -36,11 +47,7 @@ class ThemeSettings extends TimberSite
      */
     public function addToContext($data)
     {
-        $context = [
-            'site' => $this,
-        ];
-
-        return array_merge($context, $data);
+        return array_merge(['site' => $this], $data);
     }
 
     /**

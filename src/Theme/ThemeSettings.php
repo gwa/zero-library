@@ -156,7 +156,7 @@ class ThemeSettings extends TimberSite
      *
      * @param array $defaults
      */
-    function addPostsColumnsId($defaults)
+    public function addPostsColumnsId($defaults)
     {
         $defaults['date column-id'] = __('ID');
         return $defaults;
@@ -168,7 +168,7 @@ class ThemeSettings extends TimberSite
      * @param string $columnName
      * @param string $id
      */
-    function addPostsCustomIdColumns($columnName, $id)
+    public function addPostsCustomIdColumns($columnName, $id)
     {
         if ($columnName === 'date column-id') {
             echo $id;

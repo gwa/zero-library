@@ -211,7 +211,7 @@ class ThemeSettings extends TimberSite
     {
         foreach (get_taxonomies() as $taxonomy) {
             $this->getWPBridge()->addAction("manage_edit-${taxonomy}_columns", [$this, 'addColumnId']);
-            $this->getWPBridge()->addFilter("manage_${taxonomy}_custom_column", [$this, 'column_return_value'], 10, 3);
+            $this->getWPBridge()->addFilter("manage_${taxonomy}_custom_column", [$this, 'addColumnReturnValue'], 10, 3);
             $this->getWPBridge()->addFilter("manage_edit-${taxonomy}_sortable_columns", [$this, 'addColumnId']);
         }
 

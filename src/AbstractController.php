@@ -104,7 +104,7 @@ abstract class AbstractController
     /**
      * Get cache mode
      *
-     * @return \TimberLoader
+     * @return string
      */
     public function getCacheMode()
     {
@@ -116,7 +116,7 @@ abstract class AbstractController
      *
      * Timber will cache the template for 10 minutes (600 / 60 = 10).
      *
-     * @param int $second
+     * @param boolean $second
      *
      * @return self
      */
@@ -130,7 +130,7 @@ abstract class AbstractController
     /**
      * Get cache expires seconds
      *
-     * @return int
+     * @return integer
      */
     public function getCacheExpiresSecond()
     {
@@ -156,7 +156,7 @@ abstract class AbstractController
      *
      * @param string $postClass
      *
-     * @return string[]|boolean|null
+     * @return array|boolean|null
      */
     public function getPost($postClass = '\TimberPost')
     {
@@ -169,7 +169,7 @@ abstract class AbstractController
      * @param string[] $args
      * @param string   $postClass
      *
-     * @return string[]|boolean|null
+     * @return array|boolean|null
      */
     public function getPostForArgs($args, $postClass = '\TimberPost')
     {
@@ -182,7 +182,7 @@ abstract class AbstractController
      * @param string  $postClass
      * @param boolean $collection
      *
-     * @return string[]|boolean|null
+     * @return array|boolean|null
      */
     public function getPosts($postClass = '\TimberPost', $collection = false)
     {
@@ -196,7 +196,7 @@ abstract class AbstractController
      * @param string   $postClass
      * @param boolean  $collection
      *
-     * @return string[]|boolean|null
+     * @return array|boolean|null
      */
     public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
     {

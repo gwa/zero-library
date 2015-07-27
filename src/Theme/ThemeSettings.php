@@ -152,10 +152,85 @@ class ThemeSettings extends TimberSite
     }
 
     /**
+     * Add id columns to column posts
+     *
+     * @param array $defaults
+     */
+    public function addColumnId($defaults)
+    {
+        $defaults['date column-id'] = __('ID');
+        return $defaults;
+    }
+
+    /**
+     * Add id columns to custom column post
+     *
+     * @param string $columnName
+     * @param string $id
+     */
+    public function addColumnIdValue($columnName, $id)
+    {
+        if ($columnName === 'date column-id') {
+            echo $id;
+        }
+    }
+
+    /**
+    * Return the ID for the column
+    */
+    public function addColumnReturnValue($value, $columName, $id)
+    {
+        if ($columName === 'date column-id') {
+            $value = $id;
+        }
+
+        return $value;
+    }
+
+    /**
+     * Adds a id column on all admin pages
+     */
+    public function addIdCollumns()
+    {
+        foreach (get_taxonomies() as $taxonomy) {
+            add_action("manage_edit-${taxonomy}_columns", [$this, 'addColumnId']);
+            add_filter("manage_${taxonomy}_custom_column", [$this, 'column_return_value'], 10, 3);
+            add_filter("manage_edit-${taxonomy}_sortable_columns", [$this, 'addColumnId']);
+        }
+
+        foreach (get_post_types() as $ptype) {
+            add_action("manage_edit-${ptype}_columns", [$this, 'addColumnId']);
+            add_filter("manage_${ptype}_posts_custom_column", [$this, 'addColumnIdValue'], 10, 3);
+            add_filter("manage_edit-${ptype}_sortable_columns", [$this, 'addColumnId']);
+        }
+
+        add_action('manage_media_custom_column', [$this, 'addColumnIdValue'], 10, 2);
+        add_action('manage_link_custom_column', [$this, 'addColumnId'], 10, 2);
+        add_action('manage_edit-link-categories_columns', [$this, 'addColumnId']);
+        add_action('manage_users_columns', [$this, 'addColumnId']);
+        add_action('manage_edit-comments_columns', [$this, 'addColumnId']);
+        add_action('manage_comments_custom_column', [$this, 'addColumnIdValue'], 10, 2);
+
+        add_filter('manage_media_columns', [$this, 'addColumnId']);
+        add_filter('manage_link-manager_columns', [$this, 'addColumnId']);
+        add_filter('manage_link_categories_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        add_filter('manage_users_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        add_filter('manage_edit-comments_sortable_columns', [$this, 'addColumnId']);
+    }
+
+    /**
      * Init
      */
     public function init()
     {
+        global $wp_version;
+
+        if (version_compare($wp_version, '4.1.0', '<')) {
+            throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
+        }
+
+        $this->addIdCollumns();
+
         add_theme_support('post-formats');
         add_theme_support('post-thumbnails');
         add_theme_support('menus');

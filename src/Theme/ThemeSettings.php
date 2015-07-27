@@ -58,9 +58,9 @@ class ThemeSettings extends TimberSite
         // start link
         $this->getWPBridge()->removeAction('wp_head', 'start_post_rel_link', 10, 0);
         // remove WP version from css
-        $this->getWPBridge()->addF$this->getWPBridge()->ilter('style_loader_src', [$this, 'removeWpVerCssJs'], 9999);
+        $this->getWPBridge()->addFilter('style_loader_src', [$this, 'removeWpVerCssJs'], 9999);
         // remove Wp version from scripts
-        $this->getWPBridge()->addF$this->getWPBridge()->ilter('script_loader_src', [$this, 'removeWpVerCssJs'], 9999);
+        $this->getWPBridge()->addFilter('script_loader_src', [$this, 'removeWpVerCssJs'], 9999);
     }
 
     /**

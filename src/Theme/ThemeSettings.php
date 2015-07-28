@@ -13,7 +13,7 @@ namespace Gwa\Wordpress\Template\Zero\Library\Theme;
  * @license     MIT
  */
 
-use Gwa\Wordpress\MockeryWPBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use TimberMenu;
 use TimberSite;
 
@@ -52,15 +52,15 @@ class ThemeSettings extends TimberSite
     public function wpHeadCleanup()
     {
         // index link
-        $this->getWPBridge()->removeAction('wp_head', 'index_rel_link');
+        $this->getWpBridge()->removeAction('wp_head', 'index_rel_link');
         // previous link
-        $this->getWPBridge()->removeAction('wp_head', 'parent_post_rel_link', 10, 0);
+        $this->getWpBridge()->removeAction('wp_head', 'parent_post_rel_link', 10, 0);
         // start link
-        $this->getWPBridge()->removeAction('wp_head', 'start_post_rel_link', 10, 0);
+        $this->getWpBridge()->removeAction('wp_head', 'start_post_rel_link', 10, 0);
         // remove WP version from css
-        $this->getWPBridge()->addFilter('style_loader_src', [$this, 'removeWpVerCssJs'], 9999);
+        $this->getWpBridge()->addFilter('style_loader_src', [$this, 'removeWpVerCssJs'], 9999);
         // remove Wp version from scripts
-        $this->getWPBridge()->addFilter('script_loader_src', [$this, 'removeWpVerCssJs'], 9999);
+        $this->getWpBridge()->addFilter('script_loader_src', [$this, 'removeWpVerCssJs'], 9999);
     }
 
     /**
@@ -77,7 +77,7 @@ class ThemeSettings extends TimberSite
     public function removeWpVerCssJs($src)
     {
         if (strpos($src, 'ver=')) {
-            $src = $this->getWPBridge()->removeQueryArg('ver', $src);
+            $src = $this->getWpBridge()->removeQueryArg('ver', $src);
         }
 
         return $src;
@@ -210,29 +210,29 @@ class ThemeSettings extends TimberSite
     public function addIdColumn()
     {
         foreach (get_taxonomies() as $taxonomy) {
-            $this->getWPBridge()->addAction("manage_edit-${taxonomy}_columns", [$this, 'addColumnId']);
-            $this->getWPBridge()->addFilter("manage_${taxonomy}_custom_column", [$this, 'addColumnReturnValue'], 10, 3);
-            $this->getWPBridge()->addFilter("manage_edit-${taxonomy}_sortable_columns", [$this, 'addColumnId']);
+            $this->getWpBridge()->addAction("manage_edit-${taxonomy}_columns", [$this, 'addColumnId']);
+            $this->getWpBridge()->addFilter("manage_${taxonomy}_custom_column", [$this, 'addColumnReturnValue'], 10, 3);
+            $this->getWpBridge()->addFilter("manage_edit-${taxonomy}_sortable_columns", [$this, 'addColumnId']);
         }
 
         foreach (get_post_types() as $ptype) {
-            $this->getWPBridge()->addAction("manage_edit-${ptype}_columns", [$this, 'addColumnId']);
-            $this->getWPBridge()->addFilter("manage_${ptype}_posts_custom_column", [$this, 'addColumnIdValue'], 10, 3);
-            $this->getWPBridge()->addFilter("manage_edit-${ptype}_sortable_columns", [$this, 'addColumnId']);
+            $this->getWpBridge()->addAction("manage_edit-${ptype}_columns", [$this, 'addColumnId']);
+            $this->getWpBridge()->addFilter("manage_${ptype}_posts_custom_column", [$this, 'addColumnIdValue'], 10, 3);
+            $this->getWpBridge()->addFilter("manage_edit-${ptype}_sortable_columns", [$this, 'addColumnId']);
         }
 
-        $this->getWPBridge()->addAction('manage_media_custom_column', [$this, 'addColumnIdValue'], 10, 2);
-        $this->getWPBridge()->addAction('manage_link_custom_column', [$this, 'addColumnId'], 10, 2);
-        $this->getWPBridge()->addAction('manage_edit-link-categories_columns', [$this, 'addColumnId']);
-        $this->getWPBridge()->addAction('manage_users_columns', [$this, 'addColumnId']);
-        $this->getWPBridge()->addAction('manage_edit-comments_columns', [$this, 'addColumnId']);
-        $this->getWPBridge()->addAction('manage_comments_custom_column', [$this, 'addColumnIdValue'], 10, 2);
+        $this->getWpBridge()->addAction('manage_media_custom_column', [$this, 'addColumnIdValue'], 10, 2);
+        $this->getWpBridge()->addAction('manage_link_custom_column', [$this, 'addColumnId'], 10, 2);
+        $this->getWpBridge()->addAction('manage_edit-link-categories_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addAction('manage_users_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addAction('manage_edit-comments_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addAction('manage_comments_custom_column', [$this, 'addColumnIdValue'], 10, 2);
 
-        $this->getWPBridge()->addFilter('manage_media_columns', [$this, 'addColumnId']);
-        $this->getWPBridge()->addFilter('manage_link-manager_columns', [$this, 'addColumnId']);
-        $this->getWPBridge()->addFilter('manage_link_categories_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
-        $this->getWPBridge()->addFilter('manage_users_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
-        $this->getWPBridge()->addFilter('manage_edit-comments_sortable_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addFilter('manage_media_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addFilter('manage_link-manager_columns', [$this, 'addColumnId']);
+        $this->getWpBridge()->addFilter('manage_link_categories_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        $this->getWpBridge()->addFilter('manage_users_custom_column', [$this, 'addColumnReturnValue'], 10, 3);
+        $this->getWpBridge()->addFilter('manage_edit-comments_sortable_columns', [$this, 'addColumnId']);
     }
 
     /**
@@ -246,26 +246,26 @@ class ThemeSettings extends TimberSite
             throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
         }
 
-        $this->getWPBridge()->addThemeSupport('post-formats', ['aside', 'image', 'link', 'quote', 'status']);
-        $this->getWPBridge()->addThemeSupport('post-thumbnails');
-        $this->getWPBridge()->addThemeSupport('menus');
-        $this->getWPBridge()->addThemeSupport('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
+        $this->getWpBridge()->addThemeSupport('post-formats', ['aside', 'image', 'link', 'quote', 'status']);
+        $this->getWpBridge()->addThemeSupport('post-thumbnails');
+        $this->getWpBridge()->addThemeSupport('menus');
+        $this->getWpBridge()->addThemeSupport('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
         // This theme supports a variety of post formats.
 
-        $this->getWPBridge()->addAction('init', [$this, 'wpHeadCleanup']);
-        $this->getWPBridge()->addAction('admin_init', [$this, 'addIdColumn'], 199);
+        $this->getWpBridge()->addAction('init', [$this, 'wpHeadCleanup']);
+        $this->getWpBridge()->addAction('admin_init', [$this, 'addIdColumn'], 199);
 
         (new TwigFilter())->init();
 
-        $this->getWPBridge()->addFilter('the_generator', [$this, 'removeRssVersion']);
-        $this->getWPBridge()->addFilter('get_image_tag_class', [$this, 'imageTagClassClean'], 0, 4);
-        $this->getWPBridge()->addFilter('get_image_tag', [$this, 'imageEditorRemoveHightAndWidth'], 0, 4);
-        $this->getWPBridge()->addFilter('the_content', [$this, 'wrapImgInFigure'], 30);
-        $this->getWPBridge()->addFilter('post_thumbnail_html', [$this, 'removeImageAttributes'], 10);
-        $this->getWPBridge()->addFilter('image_send_to_editor', [$this, 'removeImageAttributes'], 10);
+        $this->getWpBridge()->addFilter('the_generator', [$this, 'removeRssVersion']);
+        $this->getWpBridge()->addFilter('get_image_tag_class', [$this, 'imageTagClassClean'], 0, 4);
+        $this->getWpBridge()->addFilter('get_image_tag', [$this, 'imageEditorRemoveHightAndWidth'], 0, 4);
+        $this->getWpBridge()->addFilter('the_content', [$this, 'wrapImgInFigure'], 30);
+        $this->getWpBridge()->addFilter('post_thumbnail_html', [$this, 'removeImageAttributes'], 10);
+        $this->getWpBridge()->addFilter('image_send_to_editor', [$this, 'removeImageAttributes'], 10);
 
         // Should be allways last.
-        $this->getWPBridge()->addFilter('timber_context', [$this, 'addToContext']);
+        $this->getWpBridge()->addFilter('timber_context', [$this, 'addToContext']);
     }
 
     /**
@@ -276,35 +276,35 @@ class ThemeSettings extends TimberSite
     public function wpConditionals()
     {
         return [
-            'is_home'              => $this->getWPBridge()->isHome(),
-            'is_front_page'        => $this->getWPBridge()->isFrontPage(),
-            'is_admin'             => $this->getWPBridge()->isAdmin(),
-            'is_single'            => $this->getWPBridge()->isSingle(),
-            'is_sticky'            => $this->getWPBridge()->isSticky(),
-            'get_post_type'        => $this->getWPBridge()->getPostType(),
-            'is_single'            => $this->getWPBridge()->isSingle(),
-            'is_post_type_archive' => $this->getWPBridge()->isPostTypeArchive(),
-            'is_page'              => $this->getWPBridge()->isPage(),
-            'is_page_template'     => $this->getWPBridge()->isPageTemplate(),
-            'is_category'          => $this->getWPBridge()->isCategory(),
-            'is_tag'               => $this->getWPBridge()->isTag(),
-            'has_tag'              => $this->getWPBridge()->hasTag(),
-            'is_tax'               => $this->getWPBridge()->isTax(),
-            'has_term'             => $this->getWPBridge()->hasTerm(),
-            'is_author'            => $this->getWPBridge()->isAuthor(),
-            'is_date'              => $this->getWPBridge()->isDate(),
-            'is_year'              => $this->getWPBridge()->isYear(),
-            'is_month'             => $this->getWPBridge()->isMonth(),
-            'is_day'               => $this->getWPBridge()->isDay(),
-            'is_time'              => $this->getWPBridge()->isTime(),
-            'is_archive'           => $this->getWPBridge()->isArchive(),
-            'is_search'            => $this->getWPBridge()->isSearch(),
-            'is_404'               => $this->getWPBridge()->is404(),
-            'is_paged'             => $this->getWPBridge()->isPaged(),
-            'is_attachment'        => $this->getWPBridge()->isAttachment(),
-            'is_singular'          => $this->getWPBridge()->isSingular(),
-            'template_uri'         => $this->getWPBridge()->getTemplateDirectoryUri(),
-            'single_cat_title'     => $this->getWPBridge()->singleCatTitle('', false),
+            'is_home'              => $this->getWpBridge()->isHome(),
+            'is_front_page'        => $this->getWpBridge()->isFrontPage(),
+            'is_admin'             => $this->getWpBridge()->isAdmin(),
+            'is_single'            => $this->getWpBridge()->isSingle(),
+            'is_sticky'            => $this->getWpBridge()->isSticky(),
+            'get_post_type'        => $this->getWpBridge()->getPostType(),
+            'is_single'            => $this->getWpBridge()->isSingle(),
+            'is_post_type_archive' => $this->getWpBridge()->isPostTypeArchive(),
+            'is_page'              => $this->getWpBridge()->isPage(),
+            'is_page_template'     => $this->getWpBridge()->isPageTemplate(),
+            'is_category'          => $this->getWpBridge()->isCategory(),
+            'is_tag'               => $this->getWpBridge()->isTag(),
+            'has_tag'              => $this->getWpBridge()->hasTag(),
+            'is_tax'               => $this->getWpBridge()->isTax(),
+            'has_term'             => $this->getWpBridge()->hasTerm(),
+            'is_author'            => $this->getWpBridge()->isAuthor(),
+            'is_date'              => $this->getWpBridge()->isDate(),
+            'is_year'              => $this->getWpBridge()->isYear(),
+            'is_month'             => $this->getWpBridge()->isMonth(),
+            'is_day'               => $this->getWpBridge()->isDay(),
+            'is_time'              => $this->getWpBridge()->isTime(),
+            'is_archive'           => $this->getWpBridge()->isArchive(),
+            'is_search'            => $this->getWpBridge()->isSearch(),
+            'is_404'               => $this->getWpBridge()->is404(),
+            'is_paged'             => $this->getWpBridge()->isPaged(),
+            'is_attachment'        => $this->getWpBridge()->isAttachment(),
+            'is_singular'          => $this->getWpBridge()->isSingular(),
+            'template_uri'         => $this->getWpBridge()->getTemplateDirectoryUri(),
+            'single_cat_title'     => $this->getWpBridge()->singleCatTitle('', false),
         ];
     }
 }

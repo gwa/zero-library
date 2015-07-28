@@ -3,7 +3,7 @@
 namespace Gwa\Wordpress\Template\Zero\Library\Soil;
 
 /**
- * Zero - a PHP 5.4 Wordpress Theme.
+ * Zero Library.
  *
  * @author      Daniel Bannert <info@anolilab.de>
  * @copyright   2015 Daniel Bannert

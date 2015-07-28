@@ -1,7 +1,7 @@
 
 filter:
     paths: ['src/*']
-    excluded_paths: [tests/*, vendor/*, src/timber/*]
+    excluded_paths: [tests/*, vendor/*]
 
 checks:
     php:
@@ -91,8 +91,20 @@ checks:
         avoid_multiple_statements_on_same_line: true
         avoid_fixme_comments: true
 
+build:
+    environment:
+        php: '5.4.0'
+    dependencies:
+        override:
+            - 'composer install'
+
 tools:
+    external_code_coverage:      false
     php_changetracking:          true
+
+    php_code_sniffer:
+        config:
+            standard:            PSR-2
 
     php_cs_fixer:
         enabled:                 true
@@ -103,9 +115,9 @@ tools:
             level:               all
         filter:
             excluded_paths:
+                - 'bin/*'
                 - 'vendor/*'
                 - 'tests/*'
-                - 'src/timber/*'
 
     php_loc:
         enabled:                 true
@@ -114,9 +126,9 @@ tools:
         command:                 phploc
         filter:
             excluded_paths:
+                - bin
                 - vendor
                 - tests/*
-                - src/timber/*
 
     php_mess_detector:
         enabled:                 true
@@ -125,9 +137,9 @@ tools:
         command:                 phpmd
         filter:
             excluded_paths:
+                - 'bin/*'
                 - 'vendor/*'
                 - 'tests/*'
-                - 'src/timber/*'
     php_cpd:
         enabled:                 false
 
@@ -137,9 +149,9 @@ tools:
             - php
         filter:
             excluded_paths:
+                - 'bin/*'
                 - 'vendor/*'
                 - 'tests/*'
-                - 'src/timber/*'
 
     php_pdepend:
         enabled:                 true
@@ -147,8 +159,8 @@ tools:
             - php
         command:                 pdepend
         excluded_dirs:
+            - bin
             - vendor
             - tests/*
-            - src/timber/*
 
     sensiolabs_security_checker: true

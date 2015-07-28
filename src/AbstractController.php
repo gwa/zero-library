@@ -3,7 +3,7 @@
 namespace Gwa\Wordpress\Template\Zero\Library;
 
 /**
- * Zero - a PHP 5.4 Wordpress Theme.
+ * Zero Library.
  *
  * @author      Daniel Bannert <bannert@greatwhiteark.com>
  * @copyright   2015 Great White Ark
@@ -104,7 +104,7 @@ abstract class AbstractController
     /**
      * Get cache mode
      *
-     * @return \TimberLoader
+     * @return string
      */
     public function getCacheMode()
     {
@@ -116,7 +116,7 @@ abstract class AbstractController
      *
      * Timber will cache the template for 10 minutes (600 / 60 = 10).
      *
-     * @param int $second
+     * @param boolean $second
      *
      * @return self
      */
@@ -130,7 +130,7 @@ abstract class AbstractController
     /**
      * Get cache expires seconds
      *
-     * @return int
+     * @return integer
      */
     public function getCacheExpiresSecond()
     {
@@ -154,14 +154,24 @@ abstract class AbstractController
     /**
      * Get Post
      *
-     * Works the same as AbstractController::addPostsToContext but limited to one post as the return object.
+     * @param string $postClass
      *
-     * @param string[]|boolean $args
-     * @param string           $postClass
-     *
-     * @return \Timber
+     * @return array|boolean|null
      */
-    public function getPost($args = false, $postClass = '\TimberPost')
+    public function getPost($postClass = '\TimberPost')
+    {
+        return Timber::get_post(false, $postClass);
+    }
+
+    /**
+     * Get Post on some parameters
+     *
+     * @param string[] $args
+     * @param string   $postClass
+     *
+     * @return array|boolean|null
+     */
+    public function getPostForArgs($args, $postClass = '\TimberPost')
     {
         return Timber::get_post($args, $postClass);
     }
@@ -169,13 +179,26 @@ abstract class AbstractController
     /**
      * Get Posts
      *
-     * @param string[]|boolean $args
-     * @param string           $postClass
-     * @param boolean          $collection
+     * @param string  $postClass
+     * @param boolean $collection
      *
-     * @return \Timber
+     * @return array|boolean|null
      */
-    public function getPosts($args = false, $postClass = '\TimberPost', $collection = false)
+    public function getPosts($postClass = '\TimberPost', $collection = false)
+    {
+        return Timber::get_posts(false, $postClass, $collection);
+    }
+
+    /**
+     * Get Posts on some parameters
+     *
+     * @param string[] $args
+     * @param string   $postClass
+     * @param boolean  $collection
+     *
+     * @return array|boolean|null
+     */
+    public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
     {
         return Timber::get_posts($args, $postClass, $collection);
     }
@@ -188,7 +211,7 @@ abstract class AbstractController
     public function render()
     {
         $context = $this->getContext();
-        
+
         $this->validateTemplates($this->getTemplates());
         $this->validateContext($context);
 

@@ -14,7 +14,7 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  */
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
-use Gwa\Wordpress\Template\Core\WPBridge\WPBridge;
+use Gwa\Wordpress\MockeryWpBridge\WPBridge;
 use LogicException;
 use RuntimeException;
 use Timber;

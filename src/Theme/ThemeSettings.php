@@ -307,4 +307,83 @@ class ThemeSettings extends TimberSite
             'single_cat_title'     => $this->getWpBridge()->singleCatTitle('', false),
         ];
     }
+
+    /**
+     * Initializes WP filters defined in $filtermap.
+     *
+     * @param array $filtermap
+     */
+    protected function initFilters(array $filtermap)
+    {
+        foreach ($filtermap as $settings) {
+            $filters = is_array($settings['filter']) ?: [$settings['filter']];
+            $class   = $settings['class'];
+
+            $method = isset($settings['method']) ?: 'filter';
+            $prio   = isset($settings['prio']) ? (int) $settings['prio'] : 10;
+            $args   = isset($settings['args']) ? (int) $settings['args'] : 1;
+
+            if ($class instanceof self) {
+                $instance = $class;
+            } else {
+                $instance = new $class;
+            }
+
+            foreach ($filters as $filter) {
+                $this->getWpBridge()->addFilter($filter, [$instance, $method], $prio, $args);
+            }
+        }
+    }
+
+    /**
+     * Initializes WP filters defined in $filtermap.
+     *
+     * @param array $filtermap
+     */
+    protected function initFilters(array $filtermap)
+    {
+        $map = $this->getNormalizedFilterMap($filtermap);
+
+        foreach ($map['hooks'] as $event) {
+            $this->getWpBridge()->addFilter($event, [$map['instance'], $map['method']], $map['prio'], $map['args']);
+        }
+    }
+
+    /**
+     * Initializes WP filters defined in $filtermap.
+     *
+     * @param array $filtermap
+     */
+    protected function initActions(array $filtermap)
+    {
+        $map = $this->getNormalizedFilterMap($filtermap);
+
+        foreach ($map['hooks'] as $event) {
+            $this->getWpBridge()->addAction($event, [$map['instance'], $map['method']], $map['prio'], $map['args']);
+        }
+    }
+
+    protected function getNormalizedFilterMap(array $filtermap)
+    {
+        $arr = [];
+
+        foreach ($filtermap as $settings) {
+            $hooks    = is_array($settings['hooks']) ?: [$settings['hooks']];
+            $class    = ($settings['class'] instanceof self) ? $settings['class'] : new $settings['class'];
+
+            $method   = isset($settings['method']) ?: 'hooks';
+            $prio     = isset($settings['prio']) ?: 10;
+            $args     = isset($settings['args']) ?: 1;
+
+            $arr = [
+                'hooks'    => $hooks,
+                'instance' => $class,
+                'method'   => $method,
+                'prio'     => (int) $prio,
+                'args'     => (int) $args,
+            ]
+        }
+
+        return $arr;
+    }
 }

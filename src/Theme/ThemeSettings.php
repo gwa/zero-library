@@ -238,7 +238,7 @@ class ThemeSettings extends TimberSite
     /**
      * Init
      */
-    public function init()
+    public function run()
     {
         global $wp_version;
 

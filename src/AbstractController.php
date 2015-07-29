@@ -13,6 +13,8 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  * @license     MIT
  */
 
+use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\Template\Core\WPBridge\WPBridge;
 use LogicException;
 use RuntimeException;
 use Timber;
@@ -27,6 +29,8 @@ use WP_Query;
  */
 abstract class AbstractController
 {
+    use WpBridgeTrait;
+
     protected $cacheType = [
         'none'           => TimberLoader::CACHE_NONE,
         'object'         => TimberLoader::CACHE_OBJECT,
@@ -66,10 +70,12 @@ abstract class AbstractController
                 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>'
             );
         }
+
+        $this->setWPBridge(new WPBridge());
     }
 
     /**
-     * Set Wp_Query
+     * Set \Wp_Query args
      */
     public function setWpQuery(array $args)
     {

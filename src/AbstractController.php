@@ -14,7 +14,6 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  */
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
-use Gwa\Wordpress\MockeryWpBridge\WpBridge;
 use LogicException;
 use RuntimeException;
 use Timber;
@@ -70,8 +69,6 @@ abstract class AbstractController
                 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>'
             );
         }
-
-        $this->setWpBridge(new WpBridge());
     }
 
     /**

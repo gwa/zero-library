@@ -14,7 +14,7 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  */
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
-use Gwa\Wordpress\MockeryWpBridge\WPBridge;
+use Gwa\Wordpress\MockeryWpBridge\WpBridge;
 use LogicException;
 use RuntimeException;
 use Timber;
@@ -71,7 +71,7 @@ abstract class AbstractController
             );
         }
 
-        $this->setWPBridge(new WPBridge());
+        $this->setWpBridge(new WpBridge());
     }
 
     /**

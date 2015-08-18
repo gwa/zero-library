@@ -238,11 +238,11 @@ class ThemeSettings extends TimberSite
     /**
      * Init
      */
-    public function init()
+    public function run()
     {
         global $wp_version;
 
-        if (version_compare($wp_version, '4.1.0', '<')) {
+        if (version_compare($wp_version, '4.2.1', '<')) {
             throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
         }
 

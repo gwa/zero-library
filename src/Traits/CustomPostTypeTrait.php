@@ -16,9 +16,12 @@ namespace Gwa\Wordpress\Template\Zero\Library\Traits;
 use CPT;
 
 /**
- * Default trait for custom post types.
+ * CustomPostTypeTrait.
+ *
+ * @author  GWA
+ *
  */
-trait CustomPostType
+trait CustomPostTypeTrait
 {
     /**
      * @var string

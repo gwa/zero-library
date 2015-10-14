@@ -1,5 +1,17 @@
 <?php
+
 namespace Gwa\Wordpress\Template\Zero\Library\Traits;
+
+/**
+ * Zero Library.
+ *
+ * @author      Daniel Bannert <bannert@greatwhiteark.com>
+ * @copyright   2015 Great White Ark
+ *
+ * @link        http://www.greatwhiteark.com
+ *
+ * @license     MIT
+ */
 
 use CPT;
 

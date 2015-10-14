@@ -8,7 +8,6 @@ php:
   - 7.0
   - hhvm
   - nightly
-  - hhvm-nightly
 
 env:
   global:
@@ -26,7 +25,6 @@ matrix:
     - php: 7.0
     - php: nightly
     - php: hhvm
-    - php: hhvm-nightly
   fast_finish: true
 
 sudo: false

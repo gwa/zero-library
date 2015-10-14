@@ -13,6 +13,7 @@ namespace Gwa\Wordpress\Template\Zero\Library;
  * @license     MIT
  */
 
+use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use LogicException;
 use RuntimeException;
 use Timber;
@@ -27,6 +28,8 @@ use WP_Query;
  */
 abstract class AbstractController
 {
+    use WpBridgeTrait;
+
     protected $cacheType = [
         'none'           => TimberLoader::CACHE_NONE,
         'object'         => TimberLoader::CACHE_OBJECT,
@@ -69,7 +72,7 @@ abstract class AbstractController
     }
 
     /**
-     * Set Wp_Query
+     * Set \Wp_Query args
      */
     public function setWpQuery(array $args)
     {

@@ -49,7 +49,7 @@
     "extra": {
         "installer-name": "zero-library",
         "branch-alias": {
-            "dev-master"                                       : "3.0.0-dev"
+            "dev-master"                                       : "3.3.0-dev"
         }
     },
     "scripts": {

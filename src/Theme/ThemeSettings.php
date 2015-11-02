@@ -360,7 +360,7 @@ class ThemeSettings extends TimberSite
                 'method'   => $method,
                 'prio'     => (int) $prio,
                 'args'     => (int) $args,
-            ]
+            ];
         }
 
         return $arr;

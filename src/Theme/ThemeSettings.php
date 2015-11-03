@@ -210,11 +210,11 @@ class ThemeSettings extends TimberSite
     public function shortcodeParagraphFix($content)
     {
         // Suchen und Ersetzen Strings festlegen
-        $array = array (
+        $array = [
             '<p>[' => '[',
             ']</p>' => ']',
             ']<br />' => ']'
-        );
+        ];
 
         return strtr($content, $array);
     }

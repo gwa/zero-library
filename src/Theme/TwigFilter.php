@@ -1,26 +1,8 @@
 <?php
-
 namespace Gwa\Wordpress\Template\Zero\Library\Theme;
-
-/**
- * Zero Library.
- *
- * @author      Daniel Bannert <bannert@greatwhiteark.com>
- * @copyright   2015 Great White Ark
- *
- * @link        http://www.greatwhiteark.com
- *
- * @license     MIT
- */
 
 use Twig_SimpleFunction;
 
-/**
- * Post.
- *
- * @author  GWA
- *
- */
 class TwigFilter
 {
     /**
@@ -31,14 +13,14 @@ class TwigFilter
     public function addTranslationFunctions($twig)
     {
         $twig->addFunction('_x', new Twig_SimpleFunction('_x',
-                function ($text, $context, $domain = 'default') {
-                    return _x($text, $context, $domain);
-                }
+            function ($text, $context, $domain = 'default') {
+                return _x($text, $context, $domain);
+            }
         ));
 
         $twig->addFunction('_n', new Twig_SimpleFunction('_n',
-                function ($single, $plural, $number, $domain = 'default') {
-                    return _n($single, $plural, $number, $domain);
+            function ($single, $plural, $number, $domain = 'default') {
+                return _n($single, $plural, $number, $domain);
             }
         ));
 

@@ -28,7 +28,6 @@ return Symfony\CS\Config\Config::create()
             'strict',
             'strict_param',
             '-no_empty_lines_after_phpdocs',
-            'header_comment',
             'phpdoc_order',
         ]
     )

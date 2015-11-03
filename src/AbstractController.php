@@ -1,17 +1,5 @@
 <?php
-
 namespace Gwa\Wordpress\Template\Zero\Library;
-
-/**
- * Zero Library.
- *
- * @author      Daniel Bannert <bannert@greatwhiteark.com>
- * @copyright   2015 Great White Ark
- *
- * @link        http://www.greatwhiteark.com
- *
- * @license     MIT
- */
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use LogicException;
@@ -20,12 +8,6 @@ use Timber;
 use TimberLoader;
 use WP_Query;
 
-/**
- * AbstractController.
- *
- * @author  GWA
- *
- */
 abstract class AbstractController
 {
     use WpBridgeTrait;
@@ -251,7 +233,10 @@ abstract class AbstractController
         }
 
         foreach ($templates as $template) {
-            if (!is_file(get_template_directory().'/views/'.$template) && !is_file(get_template_directory().'/views/'.end($templates))) {
+            if (
+                !is_file(get_template_directory().'/views/'.$template) &&
+                !is_file(get_template_directory().'/views/'.end($templates))
+            ) {
                 throw new LogicException(sprintf('Template [%s] dont exists.', $template));
             }
         }

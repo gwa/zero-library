@@ -1,28 +1,10 @@
 <?php
-
 namespace Gwa\Wordpress\Template\Zero\Library\Theme;
-
-/**
- * Zero Library.
- *
- * @author      Daniel Bannert <bannert@greatwhiteark.com>
- * @copyright   2015 Great White Ark
- *
- * @link        http://www.greatwhiteark.com
- *
- * @license     MIT
- */
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use TimberMenu;
 use TimberSite;
 
-/**
- * ThemeSettings.
- *
- * @author  GWA
- *
- */
 class ThemeSettings extends TimberSite
 {
     use WpBridgeTrait;
@@ -44,10 +26,7 @@ class ThemeSettings extends TimberSite
     }
 
     /**
-     * WP_HEAD GOODNESS
-     *
-     * The default WordPress head is
-     * a mess. Let's clean it up.
+     * The default WordPress head is a mess. Let's clean it up.
      */
     public function wpHeadCleanup()
     {
@@ -63,17 +42,11 @@ class ThemeSettings extends TimberSite
         $this->getWpBridge()->addFilter('script_loader_src', [$this, 'removeWpVerCssJs'], 9999);
     }
 
-    /**
-     * Remove WP version from RSS
-     */
     public function removeRssVersion()
     {
         return '';
     }
 
-    /**
-     * remove WP version from scripts
-     */
     public function removeWpVerCssJs($src)
     {
         if (strpos($src, 'ver=')) {
@@ -96,8 +69,7 @@ class ThemeSettings extends TimberSite
      */
     public function imageTagClassClean($class, $id, $align, $size)
     {
-        $align = 'align'.esc_attr($align);
-        return $align;
+        return 'align'.esc_attr($align);
     }
 
     /**
@@ -113,15 +85,15 @@ class ThemeSettings extends TimberSite
     public function imageEditorRemoveHightAndWidth($html, $id, $alt, $title)
     {
         return preg_replace([
-                '/\s+width="\d+"/i',
-                '/\s+height="\d+"/i',
-                '/alt=""/i'
-            ], [
-                '',
-                '',
-                '',
-                'alt="'.$title.'"'
-            ], $html);
+            '/\s+width="\d+"/i',
+            '/\s+height="\d+"/i',
+            '/alt=""/i'
+        ], [
+            '',
+            '',
+            '',
+            'alt="'.$title.'"'
+        ], $html);
     }
 
     /**
@@ -235,6 +207,18 @@ class ThemeSettings extends TimberSite
         $this->getWpBridge()->addFilter('manage_edit-comments_sortable_columns', [$this, 'addColumnId']);
     }
 
+    public function shortcodeParagraphFix($content)
+    {
+        // Suchen und Ersetzen Strings festlegen
+        $array = array (
+            '<p>[' => '[',
+            ']</p>' => ']',
+            ']<br />' => ']'
+        );
+
+        return strtr($content, $array);
+    }
+
     /**
      * Init
      */
@@ -249,8 +233,13 @@ class ThemeSettings extends TimberSite
         $this->getWpBridge()->addThemeSupport('post-formats', ['aside', 'image', 'link', 'quote', 'status']);
         $this->getWpBridge()->addThemeSupport('post-thumbnails');
         $this->getWpBridge()->addThemeSupport('menus');
-        $this->getWpBridge()->addThemeSupport('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
-        // This theme supports a variety of post formats.
+        $this->getWpBridge()->addThemeSupport('html5', [
+            'search-form',
+            'comment-form',
+            'comment-list',
+            'gallery',
+            'caption'
+        ]);
 
         $this->getWpBridge()->addAction('init', [$this, 'wpHeadCleanup']);
         $this->getWpBridge()->addAction('admin_init', [$this, 'addIdColumn'], 199);
@@ -263,6 +252,7 @@ class ThemeSettings extends TimberSite
         $this->getWpBridge()->addFilter('the_content', [$this, 'wrapImgInFigure'], 30);
         $this->getWpBridge()->addFilter('post_thumbnail_html', [$this, 'removeImageAttributes'], 10);
         $this->getWpBridge()->addFilter('image_send_to_editor', [$this, 'removeImageAttributes'], 10);
+        $this->getWpBridge()->addFilter('the_content', [$this, 'shortcodeParagraphFix'], 10);
 
         // Should be allways last.
         $this->getWpBridge()->addFilter('timber_context', [$this, 'addToContext']);
@@ -273,7 +263,7 @@ class ThemeSettings extends TimberSite
      *
      * @return array
      */
-    public function wpConditionals()
+    public function getWpConditionals()
     {
         return [
             'is_home'              => $this->getWpBridge()->isHome(),

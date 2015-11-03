@@ -1,26 +1,8 @@
 <?php
-
 namespace Gwa\Wordpress\Template\Zero\Library\Traits;
-
-/**
- * Zero Library.
- *
- * @author      Daniel Bannert <bannert@greatwhiteark.com>
- * @copyright   2015 Great White Ark
- *
- * @link        http://www.greatwhiteark.com
- *
- * @license     MIT
- */
 
 use CPT;
 
-/**
- * CustomPostTypeTrait.
- *
- * @author  GWA
- *
- */
 trait CustomPostTypeTrait
 {
     /**
@@ -54,8 +36,7 @@ trait CustomPostTypeTrait
             'singular'       => $this->getSingular(),
             'plural'         => $this->getPlural(),
             'slug'           => $this->getSlug(),
-        ],
-        [
+        ], [
             'supports' => $this->getSupports()
         ]);
 
@@ -143,8 +124,13 @@ trait CustomPostTypeTrait
      * @return \CMB2
      * @link https://github.com/WebDevStudios/CMB2
      */
-    final protected function addMetaBox($title = 'Custom data', $slug = 'custom_meta', $context = 'normal', $priority = 'default', $shownames = true)
-    {
+    final protected function addMetaBox(
+        $title = 'Custom data',
+        $slug = 'custom_meta',
+        $context = 'normal',
+        $priority = 'default',
+        $shownames = true
+    ) {
         return new_cmb2_box([
             'id'            => $this->getPostType() . '_' . $slug,
             'title'         => $title,

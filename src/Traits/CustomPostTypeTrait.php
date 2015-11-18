@@ -31,14 +31,16 @@ trait CustomPostTypeTrait
      */
     public function createPostType()
     {
+        $options = array_merge([
+            'supports' => $this->getSupports()
+        ], $this->getOptions());
+
         $post = new CPT([
             'post_type_name' => $this->getPostType(),
             'singular'       => $this->getSingular(),
             'plural'         => $this->getPlural(),
             'slug'           => $this->getSlug(),
-        ], [
-            'supports' => $this->getSupports()
-        ]);
+        ], $options);
 
         $post->menu_icon($this->getIcon());
         $post->set_textdomain($this->getTextDomain());
@@ -98,6 +100,14 @@ trait CustomPostTypeTrait
             'thumbnail',
             'page-attributes',
         ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOptions()
+    {
+        return [];
     }
 
     /**

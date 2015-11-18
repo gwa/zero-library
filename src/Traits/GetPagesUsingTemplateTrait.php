@@ -3,8 +3,6 @@ namespace Gwa\Wordpress\Template\ContentHub\Post\Timber\Traits;
 
 /**
  * Add methods for returning pages using a template.
- * Useful
- *
  */
 trait GetPagesUsingTemplateTrait
 {

@@ -195,13 +195,14 @@ abstract class AbstractController
      */
     public function render()
     {
-        $context = $this->getContext();
+        $context   = $this->getContext();
+        $templates = $this->getTemplates();
 
-        $this->validateTemplates($this->getTemplates());
+        $this->validateTemplates($templates);
         $this->validateContext($context);
 
         Timber::render(
-            $this->getTemplates(),
+            $templates,
             array_merge(Timber::get_context(), $context),
             // False disables cache altogether.
             ($this->getCacheExpiresSecond() ?: false),

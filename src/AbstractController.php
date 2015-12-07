@@ -198,7 +198,7 @@ abstract class AbstractController
         $context   = $this->getContext();
         $templates = $this->getTemplates();
 
-        $this->validateTemplates();
+        $this->validateTemplates($templates);
         $this->validateContext($context);
 
         Timber::render(

@@ -232,14 +232,5 @@ abstract class AbstractController
         if (!is_array($templates)) {
             throw new LogicException('::getTemplates should return a array');
         }
-
-        foreach ($templates as $template) {
-            if (
-                !is_file(get_template_directory().'/views/'.$template) &&
-                !is_file(get_template_directory().'/views/'.end($templates))
-            ) {
-                throw new LogicException(sprintf('Template [%s] dont exists.', $template));
-            }
-        }
     }
 }

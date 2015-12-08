@@ -66,8 +66,7 @@ abstract class AbstractThemeSettings
 
     /* ---------------- */
 
-    final protected function setViewsDirectory($path)
-    {
+    final protected function setViewsDirectory($path) {
         \Timber::$locations = $path;
     }
 
@@ -98,9 +97,22 @@ abstract class AbstractThemeSettings
     {
         return array_merge(
             $this->getThemeContext(),
+            $this->getModulesContext(),
             $this->getMenuInstances(),
             $data
         );
+    }
+
+    /**
+     * @return array
+     */
+    private function getModulesContext()
+    {
+        $context = [];
+        foreach ($this->modules as $module) {
+            $context = array_merge($module->getContext(), $context);
+        }
+        return $context;
     }
 
     /**

@@ -39,6 +39,15 @@ abstract class AbstractThemeModule
     }
 
     /**
+     * @return array
+     */
+    protected function getContext()
+    {
+        // Override in subclass, if required
+        return [];
+    }
+
+    /**
      * Override in concrete subclass.
      *
      *     [
@@ -94,6 +103,7 @@ abstract class AbstractThemeModule
         $map = is_array($settings[$hookkey]) ?: [$map];
 
         foreach ($map as $settings) {
+
             $classarg = $settings['class'];
             $method   = isset($settings['method']) ? $settings['method'] : $hookkey;
             $prio     = isset($settings['prio']) ? (int) $settings['prio'] : 10;

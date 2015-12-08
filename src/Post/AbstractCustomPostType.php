@@ -1,9 +1,9 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library\Traits;
+namespace Gwa\Wordpress\Zero\Post;
 
 use CPT;
 
-trait CustomPostTypeTrait
+abstract class AbstractCustomPostType
 {
     /**
      * @var string
@@ -31,16 +31,22 @@ trait CustomPostTypeTrait
      */
     public function createPostType()
     {
-        $options = array_merge([
-            'supports' => $this->getSupports()
-        ], $this->getOptions());
+        $options = array_merge(
+            [
+                'supports' => $this->getSupports()
+            ],
+            $this->getOptions()
+        );
 
-        $post = new CPT([
-            'post_type_name' => $this->getPostType(),
-            'singular'       => $this->getSingular(),
-            'plural'         => $this->getPlural(),
-            'slug'           => $this->getSlug(),
-        ], $options);
+        $post = new CPT(
+            [
+                'post_type_name' => $this->getPostType(),
+                'singular'       => $this->getSingular(),
+                'plural'         => $this->getPlural(),
+                'slug'           => $this->getSlug(),
+            ],
+            $options
+        );
 
         $post->menu_icon($this->getIcon());
         $post->set_textdomain($this->getTextDomain());
@@ -67,6 +73,7 @@ trait CustomPostTypeTrait
 
     /**
      * @return string
+     * @link https://developer.wordpress.org/resource/dashicons/
      */
     abstract public function getIcon();
 

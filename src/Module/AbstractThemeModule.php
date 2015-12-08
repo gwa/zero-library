@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library\Theme;
+namespace Gwa\Wordpress\Zero\Module;
 
 /**
  * Extend this class to create a theme module to group WP customizations meaningfully.

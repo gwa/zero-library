@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library;
+namespace Gwa\Wordpress\Zero\Controller;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use LogicException;

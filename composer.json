@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Gwa\\Wordpress\\Template\\Zero\\Library\\"        : "src/"
+            "Gwa\\Wordpress\\Zero\\"                           : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Gwa\\Wordpress\\Template\\Zero\\Library\\Tests\\" : "tests/"
+            "Gwa\\Wordpress\\Zero\\Test\\"                     : "tests/"
         },
         "classmap": [
             "wp-content/plugins/soil"

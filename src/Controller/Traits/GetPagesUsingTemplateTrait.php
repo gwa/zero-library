@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Template\ContentHub\Post\Timber\Traits;
+namespace Gwa\Wordpress\Zero\Controller\Traits;
 
 /**
  * Add methods for returning pages using a template.
@@ -13,7 +13,7 @@ trait GetPagesUsingTemplateTrait
      */
     public function getPagesUsingTemplate($templatefile)
     {
-        return get_pages([
+        return $this->getWpBridge()->getPages([
             'meta_key'   => '_wp_page_template',
             'meta_value' => $templatefile
         ]);
@@ -30,4 +30,6 @@ trait GetPagesUsingTemplateTrait
 
         return count($pages) ? $pages[0] : null;
     }
+
+    abstract public function getWpBridge();
 }

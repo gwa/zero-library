@@ -1,12 +1,8 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library\Traits;
-
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+namespace Gwa\Wordpress\Zero\Controller\Traits;
 
 trait ParseLinkTrait
 {
-    use WpBridgeTrait;
-
     /**
      * Link can be a URL, or an post ID.
      *
@@ -21,4 +17,6 @@ trait ParseLinkTrait
 
         return $link;
     }
+
+    abstract public function getWpBridge();
 }

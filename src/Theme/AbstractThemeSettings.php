@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library\Theme;
+namespace Gwa\Wordpress\Zero\Theme;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 

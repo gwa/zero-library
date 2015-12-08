@@ -1,6 +1,8 @@
 <?php
 namespace Gwa\Wordpress\Zero\Module;
 
+use Gwa\Wordpress\Zero\Theme\HookManager;
+
 /**
  * Extend this class to create a theme module to group WP customizations meaningfully.
  */

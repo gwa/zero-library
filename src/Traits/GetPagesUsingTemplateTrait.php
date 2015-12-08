@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Template\ContentHub\Post\Timber\Traits;
+namespace Gwa\Wordpress\Template\Zero\Library\Traits;
 
 /**
  * Add methods for returning pages using a template.

@@ -1,6 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Module;
 
+use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
 
 /**
@@ -8,6 +9,8 @@ use Gwa\Wordpress\Zero\Theme\HookManager;
  */
 abstract class AbstractThemeModule
 {
+    use WpBridgeTrait;
+
     /**
      * @var array
      */
@@ -21,8 +24,9 @@ abstract class AbstractThemeModule
     /**
      * @param HookManager $hookmanager
      */
-    final public function init(HookManager $hookmanager)
+    final public function init($bridge, HookManager $hookmanager)
     {
+        $this->setWpBridge($bridge);
         $this->hookmanager = $hookmanager;
 
         $this->doInit();

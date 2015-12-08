@@ -75,7 +75,7 @@ abstract class AbstractThemeSettings
     {
         foreach ($moduleclasses as $moduleclass) {
             $instance = new $moduleclass;
-            $instance->init($hookmanager);
+            $instance->init($this->getWpBridge(), $hookmanager);
 
             $this->modules[$moduleclass] = $instance;
         }
@@ -97,10 +97,10 @@ abstract class AbstractThemeSettings
     final public function addToContext(array $data)
     {
         return array_merge(
-            $this->getThemeContext(),
-            $this->getModulesContext(),
+            $data,
             $this->getMenuInstances(),
-            $data
+            $this->getModulesContext(),
+            $this->getThemeContext()
         );
     }
 

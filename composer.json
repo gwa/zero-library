@@ -17,9 +17,9 @@
     ],
     "require": {
         "php"                                           : ">=5.4.0",
-        "jjgrainger/wp-custom-post-type-class"          : "1.4",
-        "jarednova/timber"                              : "0.21.10",
-        "roots/soil"                                    : "3.4.0"
+        "jjgrainger/wp-custom-post-type-class"          : "~1.4",
+        "jarednova/timber"                              : "~0.22",
+        "roots/soil"                                    : "~3.4.0"
     },
     "require-dev": {
         "fabpot/php-cs-fixer"                           : "~1.8.1",

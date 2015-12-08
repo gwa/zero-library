@@ -123,7 +123,7 @@ abstract class AbstractThemeSettings
     {
         $ret = [];
         foreach ($this->menus as $slug => $name) {
-            $ret[] = new \TimberMenu($slug);
+            $ret['menu_' . $slug] = new \TimberMenu($slug);
         }
         return $ret;
     }
@@ -141,13 +141,14 @@ abstract class AbstractThemeSettings
 
     /**
      * Config format:
-
+     *
      *     ['slug' => 'name', 'slug' => 'name']
      *
      * @param array $config
      */
     final protected function registerMenus($config)
     {
+        $this->menus = $config;
         $this->getWpBridge()->registerNavMenus($config);
     }
 

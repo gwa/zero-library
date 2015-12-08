@@ -21,37 +21,19 @@ abstract class AbstractController
     ];
 
     /**
-     * Cache expires time
-     *
      * @var int
      */
-    protected $cacheExpiresSecond;
+    protected $cacheExpiresSeconds;
 
     /**
-     * Cache mode.
-     *
      * @var string
      */
     protected $cacheMode = TimberLoader::CACHE_USE_DEFAULT;
 
     /**
-     * WP_Query instance.
-     *
      * @var \WP_Query
      */
     protected $wpQuery;
-
-    /**
-     * AbstractController instance.
-     */
-    public function __construct()
-    {
-        if (!class_exists('TimberLoader')) {
-            throw new RuntimeException(
-                'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>'
-            );
-        }
-    }
 
     /**
      * Set \Wp_Query args
@@ -62,8 +44,6 @@ abstract class AbstractController
     }
 
     /**
-     * Get Wp_Query
-     *
      * @return \WP_Query
      */
     public function getWpQuery()
@@ -73,10 +53,7 @@ abstract class AbstractController
     }
 
     /**
-     * Set cache mode
-     *
      * @param string  $mode
-     *
      * @return self
      */
     public function setCacheMode($mode = 'default')
@@ -87,8 +64,6 @@ abstract class AbstractController
     }
 
     /**
-     * Get cache mode
-     *
      * @return string
      */
     public function getCacheMode()
@@ -97,50 +72,36 @@ abstract class AbstractController
     }
 
     /**
-     * Set cache expires seconds
-     *
-     * Timber will cache the template for 10 minutes (600 / 60 = 10).
-     *
-     * @param boolean $second
-     *
+     * @param integer $seconds
      * @return self
      */
-    public function setCacheExpiresSecond($second)
+    public function setCacheExpiresSeconds($seconds)
     {
-        $this->cacheExpiresSecond = $second;
+        $this->cacheExpiresSeconds = $seconds;
 
         return $this;
     }
 
     /**
-     * Get cache expires seconds
-     *
      * @return integer
      */
-    public function getCacheExpiresSecond()
+    public function getCacheExpiresSeconds()
     {
-        return $this->cacheExpiresSecond;
+        return $this->cacheExpiresSeconds;
     }
 
     /**
-     * Get context
-     *
      * @return array<string,\Timber|string>|null|array
      */
     abstract public function getContext();
 
     /**
-     * Get template
-     *
      * @return string[]
      */
     abstract public function getTemplates();
 
     /**
-     * Get Post
-     *
      * @param string $postClass
-     *
      * @return array|boolean|null
      */
     public function getPost($postClass = '\TimberPost')
@@ -205,7 +166,7 @@ abstract class AbstractController
             $templates,
             array_merge(Timber::get_context(), $context),
             // False disables cache altogether.
-            ($this->getCacheExpiresSecond() ?: false),
+            ($this->getCacheExpiresSeconds() ?: false),
             $this->getCacheMode()
         );
     }
@@ -232,5 +193,15 @@ abstract class AbstractController
         if (!is_array($templates)) {
             throw new LogicException('::getTemplates should return a array');
         }
+    }
+
+    /**
+     * Returns basename of template set for current page.
+     *
+     * @return string
+     */
+    protected function getTemplateSlug()
+    {
+        return $this->getWpBridge()->getPageTemplateSlug();
     }
 }

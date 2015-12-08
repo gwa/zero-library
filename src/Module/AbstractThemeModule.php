@@ -45,7 +45,7 @@ abstract class AbstractThemeModule
     /**
      * @return array
      */
-    protected function getContext()
+    public function getContext()
     {
         // Override in subclass, if required
         return [];

@@ -66,7 +66,8 @@ abstract class AbstractThemeSettings
 
     /* ---------------- */
 
-    final protected function setViewsDirectory($path) {
+    final protected function setViewsDirectory($path)
+    {
         \Timber::$locations = $path;
     }
 

@@ -56,6 +56,7 @@ abstract class AbstractThemeModule
      *
      *     [
      *         [
+     *             'hooks'  => 'hookname', // or an array of hooks
      *             'class'  => '\My\Filter\Class', // or an instance
      *             'method' => 'action',
      *             'prio'   => 10,
@@ -78,68 +79,6 @@ abstract class AbstractThemeModule
     protected function getFilterMap()
     {
         return [];
-    }
-
-    /* ---------------- */
-
-    /**
-     * Initializes WP filters defined in array passed.
-     *
-     * @param array $filtermap
-     */
-    final private function initActions(array $actionmap)
-    {
-        $this->initHooks($actionmap, 'action');
-    }
-
-    /**
-     * Initializes WP filters defined in array passed.
-     *
-     * @param array $filtermap
-     */
-    final private function initFilters(array $filtermap)
-    {
-        $this->initHooks($filtermap, 'filter');
-    }
-
-    final private function initHooks(array $map, $hookkey)
-    {
-        $map = is_array($settings[$hookkey]) ?: [$map];
-
-        foreach ($map as $settings) {
-            $classarg = $settings['class'];
-            $method   = isset($settings['method']) ? $settings['method'] : $hookkey;
-            $prio     = isset($settings['prio']) ? (int) $settings['prio'] : 10;
-            $args     = isset($settings['args']) ? (int) $settings['args'] : 1;
-
-            $instance = $this->getClassInstance($classarg);
-
-            foreach ($filters as $filter) {
-                call_user_func(
-                    'add_' . $hookkey,
-                    [$instance, $method],
-                    $prio,
-                    $args
-                );
-            }
-        }
-    }
-
-    /**
-     * @param string|object $classarg
-     * @return object
-     */
-    final private function getClassInstance($classarg)
-    {
-        if (is_object($classarg)) {
-            return $classarg;
-        }
-
-        if (!array_key_exists($classarg, $this->instances)) {
-            $this->instances[$classarg] = new $classarg;
-        }
-
-        return $this->instances[$classarg];
     }
 
     /**

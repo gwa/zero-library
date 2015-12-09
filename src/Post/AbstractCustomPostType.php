@@ -1,10 +1,12 @@
 <?php
 namespace Gwa\Wordpress\Zero\Post;
 
-use CPT;
+use Gwa\Wordpress\Zero\Traits\AddCustomControl;
 
 abstract class AbstractCustomPostType
 {
+    use AddCustomControl;
+
     /**
      * @var string
      */
@@ -27,7 +29,7 @@ abstract class AbstractCustomPostType
     }
 
     /**
-     * @return CPT
+     * @return \CPT
      */
     public function createPostType()
     {
@@ -38,7 +40,7 @@ abstract class AbstractCustomPostType
             $this->getOptions()
         );
 
-        $post = new CPT(
+        $post = new \CPT(
             [
                 'post_type_name' => $this->getPostType(),
                 'singular'       => $this->getSingular(),
@@ -128,56 +130,5 @@ abstract class AbstractCustomPostType
     public function addExtra()
     {
         // hook for subclass
-    }
-
-    /* -------- CUSTOM FIELDS --------- */
-
-    /**
-     * @param string $title
-     * @param string $slug
-     * @param string $context
-     * @param string $priority
-     * @param boolean $shownames
-     * @return \CMB2
-     * @link https://github.com/WebDevStudios/CMB2
-     */
-    final protected function addMetaBox(
-        $title = 'Custom data',
-        $slug = 'custom_meta',
-        $context = 'normal',
-        $priority = 'default',
-        $shownames = true
-    ) {
-        return new_cmb2_box([
-            'id'            => $this->getPostType() . '_' . $slug,
-            'title'         => $title,
-            'object_types'  => [$this->getPostType()],
-            'context'       => $context,
-            'priority'      => $priority,
-            'show_names'    => $shownames,
-        ]);
-    }
-
-    final protected function addFieldToBox($box, $type, $slug, $name, $description = '', $atts = [])
-    {
-        $defaults = [
-            'name'    => $name,
-            'desc'    => $description,
-            'id'      => $this->getIdForSlug($slug),
-            'type'    => $type
-        ];
-
-        $atts = array_merge($defaults, $atts);
-
-        $box->add_field($atts);
-    }
-
-    /**
-     * @param string $slug
-     * @return string
-     */
-    final protected function getIdForSlug($slug)
-    {
-        return $this->getPostType() . '_' . $slug;
     }
 }

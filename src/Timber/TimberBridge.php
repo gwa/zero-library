@@ -16,7 +16,7 @@ class TimberBridge implements TimberBridgeInterface
      */
     public function __call($function, $args = [])
     {
-        return call_user_func_array(['Timber::' . $this->camelToUnderscore($function)], $args);
+        return call_user_func_array('\Timber::' . $this->camelToUnderscore($function), $args);
     }
 
     /**

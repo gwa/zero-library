@@ -54,6 +54,8 @@ class AbstractThemeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Gwa\Wordpress\Zero\Test\Controller\MyController', $controller);
         $this->assertSame($this->instance, $controller->getTheme());
+        $this->assertSame($this->instance->getWpBridge(), $controller->getWpBridge());
+        $this->assertSame($this->instance->getTimberBridge(), $controller->getTimberBridge());
     }
 
     /* --------- */

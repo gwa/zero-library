@@ -52,9 +52,9 @@
         }
     },
     "scripts": {
-        "test"                                                 : "phpunit",
-        "check-cs"                                             : "php-cs-fixer.phar fix -v --dry-run",
-        "fix-cs"                                               : "php-cs-fixer.phar fix"
+        "test"                                                 : "vendor/bin/phpunit",
+        "check-cs"                                             : "vendor/bin/php-cs-fixer fix -v --dry-run",
+        "fix-cs"                                               : "vendor/bin/php-cs-fixer fix"
     },
     "minimum-stability"                                        : "dev",
     "prefer-stable"                                            : true

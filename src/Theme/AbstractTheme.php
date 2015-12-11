@@ -2,6 +2,7 @@
 namespace Gwa\Wordpress\Zero\Theme;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\MockeryWpBridge\WpBridge;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 use Gwa\Wordpress\Zero\Timber\TimberBridge;
@@ -32,6 +33,9 @@ abstract class AbstractTheme
 
     final public function __construct()
     {
+        // set default WpBridge
+        $this->setWpBridge(new WpBridge);
+
         // set default TimberBridge
         $this->setTimberBridge(new TimberBridge);
     }
@@ -185,6 +189,7 @@ abstract class AbstractTheme
     {
         return (new $classname())
             ->setTheme($this)
+            ->setTimberBridge($this->getTimberBridge())
             ->setWpBridge($this->getWpBridge());
     }
 

@@ -5,6 +5,11 @@ use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use TimberMenu;
 use TimberSite;
 
+/**
+ * @todo Move functionality to concrete modules.
+ * @deprecated
+ * @codeCoverageIgnore
+ */
 class ThemeSettings extends TimberSite
 {
     use WpBridgeTrait;

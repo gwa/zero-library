@@ -6,8 +6,8 @@ trait ParseLinkTrait
     /**
      * Link can be a URL, or an post ID.
      *
-     * @param string $link
-     * @return string
+     * @param string $link URL, or WP post numeric ID
+     * @return string URL
      */
     protected function parseLink($link)
     {

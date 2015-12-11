@@ -2,6 +2,8 @@
 namespace Gwa\Wordpress\Zero\Theme;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
+use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 
 /**
  * Extend this class make your theme settings are initialize theme modules.
@@ -32,11 +34,13 @@ abstract class AbstractThemeSettings
         $this->doInit();
         $this->registerModules($this->getModuleClasses(), $this->hookmanager);
 
-        $this->hookmanager->addFilter('timber_context', $this, 'addToContext');
+        $this->getHookManager()->addFilter('timber_context', $this, 'addToContext');
     }
 
     /**
      * Override in concrete subclass!
+     * Do stuff like this:
+     *
      * - setViewsDirectory()
      * - addThemeLangSupport()
      * - registerMenus()
@@ -66,6 +70,12 @@ abstract class AbstractThemeSettings
 
     /* ---------------- */
 
+    /**
+     * Sets the absolute path to the directory containing the twig files.
+     *
+     * @param string $path
+     * @codeCoverageIgnore
+     */
     final protected function setViewsDirectory($path)
     {
         \Timber::$locations = $path;
@@ -87,7 +97,10 @@ abstract class AbstractThemeSettings
      */
     final protected function addThemeLangSupport($slug, $languagedirectory = 'languages')
     {
-        $this->getWpBridge()->loadThemeTextdomain($slug, get_template_directory() . '/' . $languagedirectory);
+        $this->getWpBridge()->loadThemeTextdomain(
+            $slug,
+            $this->getWpBridge()->getTemplateDirectory() . '/' . $languagedirectory
+        );
     }
 
     /**
@@ -117,18 +130,19 @@ abstract class AbstractThemeSettings
     }
 
     /**
-     * @return array \TimberMenu instances
+     * @return array Menu instances to be passed to the view context.
      */
     final protected function getMenuInstances()
     {
         $ret = [];
         foreach ($this->menus as $slug => $name) {
-            $ret['menu_' . $slug] = new \TimberMenu($slug);
+            $ret['menu_' . $slug] = $this->getMenuFactory()->create($slug);
         }
         return $ret;
     }
 
     /**
+     * Register a WP image size.
      * @param string $name
      * @param integer $width
      * @param integer $height
@@ -142,7 +156,7 @@ abstract class AbstractThemeSettings
     /**
      * Config format:
      *
-     *     ['slug' => 'name', 'slug' => 'name']
+     *     ['slug' => 'name', 'slug2' => 'name2']
      *
      * @param array $config
      */
@@ -158,5 +172,25 @@ abstract class AbstractThemeSettings
     final protected function getHookManager()
     {
         return $this->hookmanager;
+    }
+
+    /**
+     * @return MenuFactoryContract
+     */
+    final public function getMenuFactory()
+    {
+        if (!isset($this->menufactory)) {
+            $this->menufactory = new TimberMenuFactory;
+        }
+
+        return $this->menufactory;
+    }
+
+    /**
+     * @param MenuFactoryContract $factory
+     */
+    final public function setMenuFactory(MenuFactoryContract $factory)
+    {
+        $this->menufactory = $factory;
     }
 }

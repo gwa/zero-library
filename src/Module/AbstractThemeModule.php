@@ -1,6 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Module;
 
+use Gwa\Wordpress\MockeryWpBridge\Contracts\WpBridgeInterface;
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
 
@@ -22,17 +23,20 @@ abstract class AbstractThemeModule
     private $hookmanager;
 
     /**
+     * @param WpBridgeInterface $bridge
      * @param HookManager $hookmanager
      */
-    final public function init($bridge, HookManager $hookmanager)
+    final public function init(WpBridgeInterface $bridge, HookManager $hookmanager)
     {
         $this->setWpBridge($bridge);
         $this->hookmanager = $hookmanager;
 
         $this->doInit();
 
-        $this->hookmanager->addActions($this->getActionMap());
-        $this->hookmanager->addFilters($this->getFilterMap());
+        $this->registerShortcodes($this->getShortcodeClasses());
+
+        $this->getHookManager()->addActions($this->getActionMap());
+        $this->getHookManager()->addFilters($this->getFilterMap());
     }
 
     /* ---------------- */
@@ -48,6 +52,16 @@ abstract class AbstractThemeModule
     public function getContext()
     {
         // Override in subclass, if required
+        return [];
+    }
+
+    /**
+     * Override in concrete subclass!
+     *
+     * @return array
+     */
+    protected function getShortcodeClasses()
+    {
         return [];
     }
 
@@ -79,6 +93,16 @@ abstract class AbstractThemeModule
     protected function getFilterMap()
     {
         return [];
+    }
+
+    /* ---------------- */
+
+    final private function registerShortcodes(array $shortcodeclasses)
+    {
+        foreach ($shortcodeclasses as $shortcodeclass) {
+            $instance = new $shortcodeclass;
+            $instance->init($this->getWpBridge(), $this);
+        }
     }
 
     /**

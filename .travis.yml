@@ -23,6 +23,6 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  # - vendor/bin/phpunit
+  - vendor/bin/phpunit
   - vendor/bin/php-cs-fixer --diff --dry-run -vv fix
   - php -n security-checker.phar security:check --format=simple

@@ -1,9 +1,9 @@
 <?php
 namespace Gwa\Wordpress\Zero\Test\Theme;
 
-use Gwa\Wordpress\Zero\Theme\AbstractThemeSettings;
+use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 
-class MyThemeSettings extends AbstractThemeSettings
+class MyTheme extends AbstractTheme
 {
     public $isinit = false;
 

@@ -4,7 +4,7 @@ namespace Gwa\Wordpress\Zero\Test\Theme;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\MockMenuFactory;
 use Gwa\Wordpress\MockeryWpBridge\MockeryWpBridge;
 
-class AbstractThemeSettingsTest extends \PHPUnit_Framework_TestCase
+class AbstractThemeTest extends \PHPUnit_Framework_TestCase
 {
     private $bridge;
     private $instance;
@@ -12,7 +12,7 @@ class AbstractThemeSettingsTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->bridge = new MockeryWpBridge;
-        $this->instance = new MyThemeSettings;
+        $this->instance = new MyTheme;
         $this->instance->setMenuFactory(new MockMenuFactory);
         $this->instance->setWpBridge($this->bridge);
     }
@@ -21,7 +21,7 @@ class AbstractThemeSettingsTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf('Gwa\Wordpress\Zero\Theme\AbstractThemeSettings', $this->instance);
+        $this->assertInstanceOf('Gwa\Wordpress\Zero\Theme\AbstractTheme', $this->instance);
     }
 
     public function testInit()
@@ -44,8 +44,16 @@ class AbstractThemeSettingsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDefaultMenuFactory()
     {
-        $this->instance = new MyThemeSettings;
+        $this->instance = new MyTheme;
         $this->assertInstanceOf('Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory', $this->instance->getMenuFactory());
+    }
+
+    public function testCreateController()
+    {
+        $controller = $this->instance->createController('Gwa\Wordpress\Zero\Test\Controller\MyController');
+
+        $this->assertInstanceOf('Gwa\Wordpress\Zero\Test\Controller\MyController', $controller);
+        $this->assertSame($this->instance, $controller->getTheme());
     }
 
     /* --------- */

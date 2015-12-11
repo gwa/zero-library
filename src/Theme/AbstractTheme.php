@@ -8,7 +8,7 @@ use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 /**
  * Extend this class make your theme settings are initialize theme modules.
  */
-abstract class AbstractThemeSettings
+abstract class AbstractTheme
 {
     use WpBridgeTrait;
 
@@ -164,6 +164,19 @@ abstract class AbstractThemeSettings
     {
         $this->menus = $config;
         $this->getWpBridge()->registerNavMenus($config);
+    }
+
+    /**
+     * Creates a controller (typically from a WP theme PHP file).
+     *
+     * @param string $classname
+     * @return \Gwa\Wordpress\Zero\Controller\AbstractController
+     */
+    public function createController($classname)
+    {
+        return (new $classname())
+            ->setTheme($this)
+            ->setWpBridge($this->getWpBridge());
     }
 
     /**

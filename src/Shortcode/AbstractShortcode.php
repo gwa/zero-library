@@ -1,10 +1,9 @@
 <?php
 namespace Gwa\Wordpress\Zero\Shortcode;
 
-use Gwa\Wordpress\Zero\Module\AbstractThemeModule;
-
 use Gwa\Wordpress\MockeryWpBridge\Contracts\WpBridgeInterface;
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\Zero\Module\AbstractThemeModule;
 
 /**
  * Abstract class to be extended by all shortcodes.

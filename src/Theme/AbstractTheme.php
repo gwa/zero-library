@@ -4,12 +4,15 @@ namespace Gwa\Wordpress\Zero\Theme;
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
+use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
+use Gwa\Wordpress\Zero\Timber\TimberBridge;
 
 /**
  * Extend this class make your theme settings are initialize theme modules.
  */
 abstract class AbstractTheme
 {
+    use TimberBridgeTrait;
     use WpBridgeTrait;
 
     /**
@@ -26,6 +29,12 @@ abstract class AbstractTheme
      * @var HookManager
      */
     private $hookmanager;
+
+    final public function __construct()
+    {
+        // set default TimberBridge
+        $this->setTimberBridge(new TimberBridge);
+    }
 
     final public function init()
     {

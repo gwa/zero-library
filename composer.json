@@ -17,10 +17,10 @@
     ],
     "require": {
         "php"                                                  : ">=5.4.0",
-        "jjgrainger/wp-custom-post-type-class"                 : "~1.4",
-        "jarednova/timber"                                     : "~0.22",
+        "jjgrainger/wp-custom-post-type-class"                 : "~1.3.1",
+        "jarednova/timber"                                     : "0.22.0",
         "webdevstudios/cmb2"                                   : "~2.1.2",
-        "gwa/mockery-wp-bridge"                                : "~1.2",
+        "gwa/mockery-wp-bridge"                                : "^1.2",
         "roots/soil"                                           : "~3.4.0"
     },
     "require-dev": {
@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Gwa\\Wordpress\\Template\\Zero\\Library\\"        : "src/"
+            "Gwa\\Wordpress\\Zero\\"                           : "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Gwa\\Wordpress\\Template\\Zero\\Library\\Tests\\" : "tests/"
+            "Gwa\\Wordpress\\Zero\\Test\\"                     : "tests/"
         },
         "classmap": [
             "wp-content/plugins/soil"
@@ -52,9 +52,9 @@
         }
     },
     "scripts": {
-        "test"                                                 : "phpunit",
-        "check-cs"                                             : "php-cs-fixer.phar fix -v --dry-run",
-        "fix-cs"                                               : "php-cs-fixer.phar fix"
+        "test"                                                 : "vendor/bin/phpunit",
+        "check-cs"                                             : "vendor/bin/php-cs-fixer fix -v --dry-run",
+        "fix-cs"                                               : "vendor/bin/php-cs-fixer fix"
     },
     "minimum-stability"                                        : "dev",
     "prefer-stable"                                            : true

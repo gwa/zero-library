@@ -3,6 +3,11 @@ namespace Gwa\Wordpress\Template\Zero\Library\Theme;
 
 use Twig_SimpleFunction;
 
+/**
+ * @todo Move functionality to concrete modules.
+ * @deprecated
+ * @codeCoverageIgnore
+ */
 class TwigFilter
 {
     /**

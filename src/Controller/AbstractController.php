@@ -1,16 +1,21 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library;
+namespace Gwa\Wordpress\Zero\Controller;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\Zero\Theme\AbstractTheme;
+use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
 use LogicException;
-use RuntimeException;
-use Timber;
 use TimberLoader;
-use WP_Query;
 
 abstract class AbstractController
 {
+    use TimberBridgeTrait;
     use WpBridgeTrait;
+
+    /**
+     * @var AbstractTheme
+     */
+    private $theme;
 
     protected $cacheType = [
         'none'           => TimberLoader::CACHE_NONE,
@@ -21,62 +26,17 @@ abstract class AbstractController
     ];
 
     /**
-     * Cache expires time
-     *
      * @var int
      */
-    protected $cacheExpiresSecond;
+    protected $cacheExpiresSeconds;
 
     /**
-     * Cache mode.
-     *
      * @var string
      */
     protected $cacheMode = TimberLoader::CACHE_USE_DEFAULT;
 
     /**
-     * WP_Query instance.
-     *
-     * @var \WP_Query
-     */
-    protected $wpQuery;
-
-    /**
-     * AbstractController instance.
-     */
-    public function __construct()
-    {
-        if (!class_exists('TimberLoader')) {
-            throw new RuntimeException(
-                'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>'
-            );
-        }
-    }
-
-    /**
-     * Set \Wp_Query args
-     */
-    public function setWpQuery(array $args)
-    {
-        $this->wpQuery = new WP_Query($args);
-    }
-
-    /**
-     * Get Wp_Query
-     *
-     * @return \WP_Query
-     */
-    public function getWpQuery()
-    {
-        global $wp_query;
-        return isset($this->wpQuery) ? $this->wpQuery : $wp_query;
-    }
-
-    /**
-     * Set cache mode
-     *
      * @param string  $mode
-     *
      * @return self
      */
     public function setCacheMode($mode = 'default')
@@ -87,8 +47,6 @@ abstract class AbstractController
     }
 
     /**
-     * Get cache mode
-     *
      * @return string
      */
     public function getCacheMode()
@@ -97,60 +55,44 @@ abstract class AbstractController
     }
 
     /**
-     * Set cache expires seconds
-     *
-     * Timber will cache the template for 10 minutes (600 / 60 = 10).
-     *
-     * @param boolean $second
-     *
+     * @param integer $seconds
      * @return self
      */
-    public function setCacheExpiresSecond($second)
+    public function setCacheExpiresSeconds($seconds)
     {
-        $this->cacheExpiresSecond = $second;
+        $this->cacheExpiresSeconds = $seconds;
 
         return $this;
     }
 
     /**
-     * Get cache expires seconds
-     *
      * @return integer
      */
-    public function getCacheExpiresSecond()
+    public function getCacheExpiresSeconds()
     {
-        return $this->cacheExpiresSecond;
+        return $this->cacheExpiresSeconds;
     }
 
     /**
-     * Get context
-     *
      * @return array<string,\Timber|string>|null|array
      */
     abstract public function getContext();
 
     /**
-     * Get template
-     *
      * @return string[]
      */
     abstract public function getTemplates();
 
     /**
-     * Get Post
-     *
      * @param string $postClass
-     *
      * @return array|boolean|null
      */
     public function getPost($postClass = '\TimberPost')
     {
-        return Timber::get_post(false, $postClass);
+        return $this->getPostForArgs(false, $postClass);
     }
 
     /**
-     * Get Post on some parameters
-     *
      * @param string[] $args
      * @param string   $postClass
      *
@@ -158,12 +100,10 @@ abstract class AbstractController
      */
     public function getPostForArgs($args, $postClass = '\TimberPost')
     {
-        return Timber::get_post($args, $postClass);
+        return $this->getTimberBridge()->getPost($args, $postClass);
     }
 
     /**
-     * Get Posts
-     *
      * @param string  $postClass
      * @param boolean $collection
      *
@@ -171,12 +111,10 @@ abstract class AbstractController
      */
     public function getPosts($postClass = '\TimberPost', $collection = false)
     {
-        return Timber::get_posts(false, $postClass, $collection);
+        return $this->getPostsForArgs(false, $postClass, $collection);
     }
 
     /**
-     * Get Posts on some parameters
-     *
      * @param string[] $args
      * @param string   $postClass
      * @param boolean  $collection
@@ -185,7 +123,7 @@ abstract class AbstractController
      */
     public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
     {
-        return Timber::get_posts($args, $postClass, $collection);
+        return $this->getTimberBridge()->getPosts($args, $postClass, $collection);
     }
 
     /**
@@ -201,11 +139,10 @@ abstract class AbstractController
         $this->validateTemplates($templates);
         $this->validateContext($context);
 
-        Timber::render(
+        $this->getTimberBridge()->render(
             $templates,
-            array_merge(Timber::get_context(), $context),
-            // False disables cache altogether.
-            ($this->getCacheExpiresSecond() ?: false),
+            array_merge($this->getTimberBridge()->getContext(), $context),
+            ($this->getCacheExpiresSeconds() ?: false), // False disables cache altogether.
             $this->getCacheMode()
         );
     }
@@ -232,14 +169,33 @@ abstract class AbstractController
         if (!is_array($templates)) {
             throw new LogicException('::getTemplates should return a array');
         }
+    }
 
-        foreach ($templates as $template) {
-            if (
-                !is_file(get_template_directory().'/views/'.$template) &&
-                !is_file(get_template_directory().'/views/'.end($templates))
-            ) {
-                throw new LogicException(sprintf('Template [%s] dont exists.', $template));
-            }
-        }
+    /**
+     * Returns basename of template set for current page.
+     * Useful for setting templates based on template slug.
+     *
+     * @return string
+     */
+    protected function getTemplateSlug()
+    {
+        return $this->getWpBridge()->getPageTemplateSlug();
+    }
+
+    /**
+     * @return AbstractTheme
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * @param AbstractTheme $theme
+     */
+    public function setTheme(AbstractTheme $theme)
+    {
+        $this->theme = $theme;
+        return $this;
     }
 }

@@ -1,10 +1,15 @@
 <?php
-namespace Gwa\Wordpress\Template\Zero\Library\Theme;
+namespace Gwa\Wordpress\Zero\Theme;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use TimberMenu;
 use TimberSite;
 
+/**
+ * @todo Move functionality to concrete modules.
+ * @deprecated
+ * @codeCoverageIgnore
+ */
 class ThemeSettings extends TimberSite
 {
     use WpBridgeTrait;

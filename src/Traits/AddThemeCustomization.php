@@ -6,7 +6,7 @@ use WP_Customize_Control;
 /**
  * Add trait to a module to add control boxes and controls.
  */
-trait AddCustomCustomizeMenu
+trait AddThemeCustomization
 {
     private $wpcustomize;
 

@@ -1,11 +1,13 @@
 <?php
 namespace Gwa\Wordpress\Zero\Post;
 
+use Gwa\Wordpress\MockeryWpBridge\Traits\AddCustomCustomizeMenu;
 use Gwa\Wordpress\Zero\Traits\AddCustomControl;
 
 abstract class AbstractCustomPostType
 {
     use AddCustomControl;
+    use AddCustomCustomizeMenu;
 
     /**
      * @var string

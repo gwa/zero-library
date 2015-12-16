@@ -2,6 +2,7 @@
 namespace Gwa\Wordpress\Zero\Module;
 
 use Gwa\Wordpress\MockeryWpBridge\Contracts\WpBridgeInterface;
+use Gwa\Wordpress\MockeryWpBridge\Traits\AddCustomCustomizeMenu;
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
 
@@ -11,6 +12,7 @@ use Gwa\Wordpress\Zero\Theme\HookManager;
 abstract class AbstractThemeModule
 {
     use WpBridgeTrait;
+    use AddCustomCustomizeMenu;
 
     /**
      * @var array

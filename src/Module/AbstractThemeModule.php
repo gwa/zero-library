@@ -4,7 +4,6 @@ namespace Gwa\Wordpress\Zero\Module;
 use Gwa\Wordpress\MockeryWpBridge\Contracts\WpBridgeInterface;
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
-use Gwa\Wordpress\Zero\Traits\AddCustomCustomizeMenu;
 
 /**
  * Extend this class to create a theme module to group WP customizations meaningfully.
@@ -12,7 +11,6 @@ use Gwa\Wordpress\Zero\Traits\AddCustomCustomizeMenu;
 abstract class AbstractThemeModule
 {
     use WpBridgeTrait;
-    use AddCustomCustomizeMenu;
 
     /**
      * @var array

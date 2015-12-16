@@ -42,7 +42,7 @@ trait AddCustomCustomizeMenu
     {
         $this->wpcustomize->add_control(
             new WP_Customize_Control(
-                $wp,
+                $this->wpcustomize,
                 $name,
                 $options
             )

@@ -2,6 +2,7 @@
 namespace Gwa\Wordpress\Zero\Controller;
 
 use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\MockeryWpBridge\Contracts\MockeryWpBridgeAwareInterface;
 use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
 use LogicException;
@@ -34,6 +35,11 @@ abstract class AbstractController
      * @var string
      */
     protected $cacheMode = TimberLoader::CACHE_USE_DEFAULT;
+
+    public function __construct()
+    {
+        $this->getWpBridge()->addFilter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
+    }
 
     /**
      * @param string  $mode
@@ -197,5 +203,16 @@ abstract class AbstractController
     {
         $this->theme = $theme;
         return $this;
+    }
+
+    public function addWpBridgeToPosts($posts)
+    {
+        foreach ($posts as $key => $post) {
+            if ($post instanceof MockeryWpBridgeAwareInterface) {
+                $posts[$key] = $post->setWpBridge($this->getWpBridge());
+            }
+        }
+
+        return $posts;
     }
 }

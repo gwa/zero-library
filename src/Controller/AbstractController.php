@@ -38,7 +38,7 @@ abstract class AbstractController
 
     public function __construct()
     {
-        $this->getWpBridge()->addFilter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
+        add_filter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
     }
 
     /**

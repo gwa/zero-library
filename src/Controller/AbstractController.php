@@ -36,11 +36,6 @@ abstract class AbstractController
      */
     protected $cacheMode = TimberLoader::CACHE_USE_DEFAULT;
 
-    public function __construct()
-    {
-        add_filter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
-    }
-
     /**
      * @param string  $mode
      * @return self
@@ -139,6 +134,9 @@ abstract class AbstractController
      */
     public function render()
     {
+
+        $this->getWpBridge()->addFilter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
+
         $context   = $this->getContext();
         $templates = $this->getTemplates();
 

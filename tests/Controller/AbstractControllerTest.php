@@ -2,6 +2,7 @@
 namespace Gwa\Wordpress\Zero\Test\Controller;
 
 use Gwa\Wordpress\Zero\Timber\MockeryTimberBridge;
+use Gwa\Wordpress\MockeryWpBridge\MockeryWpBridge;
 
 class AbstractControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -88,8 +89,14 @@ class AbstractControllerTest extends \PHPUnit_Framework_TestCase
             ->with([], [], false, 'default')
             ->mock();
 
+        $MockBridge = new MockeryWpBridge;
+        $MockBridge->mock()
+            ->shouldReceive('addFilter')
+            ->mock();
+
         $controller = new MyController;
         $controller->setTimberBridge($bridge);
+        $controller->setWpBridge($MockBridge);
 
         $controller->render();
     }

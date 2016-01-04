@@ -2,7 +2,7 @@
 namespace Gwa\Wordpress\Zero\Test\Theme;
 
 use Gwa\Wordpress\Zero\Theme\MenuFactory\MockMenuFactory;
-use Gwa\Wordpress\MockeryWpBridge\MockeryWpBridge;
+use Gwa\Wordpress\WpBridge\MockeryWpBridge;
 
 class AbstractThemeTest extends \PHPUnit_Framework_TestCase
 {

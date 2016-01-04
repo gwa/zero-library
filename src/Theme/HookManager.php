@@ -1,7 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Theme;
 
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 
 /**
  * Used to register filters and actions from theme settings and modules.

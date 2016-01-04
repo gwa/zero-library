@@ -1,7 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Test\Shortcode;
 
-use Gwa\Wordpress\MockeryWpBridge\MockeryWpBridge;
+use Gwa\Wordpress\WpBridge\MockeryWpBridge;
 
 class AbstractModuleTest extends \PHPUnit_Framework_TestCase
 {

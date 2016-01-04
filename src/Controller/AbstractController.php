@@ -1,8 +1,8 @@
 <?php
 namespace Gwa\Wordpress\Zero\Controller;
 
-use Gwa\Wordpress\MockeryWpBridge\Contracts\MockeryWpBridgeAwareInterface;
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\WpBridge\Contracts\WpBridgeAwareInterface;
+use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
 use LogicException;

@@ -1,8 +1,8 @@
 <?php
 namespace Gwa\Wordpress\Zero\Theme;
 
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
-use Gwa\Wordpress\MockeryWpBridge\WpBridge;
+use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\WpBridge\WpBridge;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 use Gwa\Wordpress\Zero\Timber\TimberBridge;

@@ -1,8 +1,8 @@
 <?php
 namespace Gwa\Wordpress\Zero\Module;
 
-use Gwa\Wordpress\MockeryWpBridge\Contracts\WpBridgeInterface;
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\WpBridge\Contracts\WpBridgeInterface;
+use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
 
 /**

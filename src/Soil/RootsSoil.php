@@ -1,9 +1,6 @@
 <?php
 namespace Gwa\Wordpress\Zero\Soil;
 
-/**
- *
- */
 class RootsSoil
 {
     /**

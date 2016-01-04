@@ -205,7 +205,7 @@ abstract class AbstractController
     public function addWpBridgeToPosts($posts)
     {
         foreach ($posts as $key => $post) {
-            if ($post instanceof MockeryWpBridgeAwareInterface) {
+            if ($post instanceof WpBridgeAwareInterface) {
                 $posts[$key] = $post->setWpBridge($this->getWpBridge());
             }
         }

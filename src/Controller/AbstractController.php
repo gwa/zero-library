@@ -1,8 +1,8 @@
 <?php
 namespace Gwa\Wordpress\Zero\Controller;
 
-use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\MockeryWpBridge\Contracts\MockeryWpBridgeAwareInterface;
+use Gwa\Wordpress\MockeryWpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
 use LogicException;
@@ -134,7 +134,6 @@ abstract class AbstractController
      */
     public function render()
     {
-
         $this->getWpBridge()->addFilter('timber_post_getter_get_posts', [$this, 'addWpBridgeToPosts'], 10, 3);
 
         $context   = $this->getContext();

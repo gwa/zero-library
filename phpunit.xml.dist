@@ -17,6 +17,7 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
@@ -25,6 +26,11 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"/>
+    </listeners>
+
     <logging>
         <log type="tap" target="build/report.tap"/>
         <log type="junit" target="build/report.junit.xml"/>

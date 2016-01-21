@@ -26,7 +26,7 @@ abstract class AbstractShortcode
     {
         $this->setWpBridge($bridge);
         $this->module = $module;
-        $this->getWPBridge()->addShortcode($this->getShortcode(), [$this, 'render']);
+        $this->getWpBridge()->addShortcode($this->getShortcode(), [$this, 'render']);
     }
 
     /**
@@ -48,7 +48,7 @@ abstract class AbstractShortcode
      */
     final protected function getNormedAtts($atts)
     {
-        return $this->getWPBridge()->shortcodeAtts($this->getDefaultAtts(), $atts);
+        return $this->getWpBridge()->shortcodeAtts($this->getDefaultAtts(), $atts);
     }
 
     /**

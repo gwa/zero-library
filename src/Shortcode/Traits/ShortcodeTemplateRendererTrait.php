@@ -15,10 +15,11 @@ trait ShortcodeTemplateRendererTrait
     private $renderer;
 
     /**
-     * @param ShortcodeTemplateRendererInterface $renderer
+     * @param ShortcodeTemplateRendererInterface $rendere
+     * r
      * @return ShortcodeTemplateRendererTrait
      */
-    public function setTemplateRenderer($renderer)
+    public function setTemplateRenderer(ShortcodeTemplateRendererInterface $renderer)
     {
         $this->renderer = $renderer;
         return $this;

@@ -22,11 +22,18 @@ abstract class AbstractShortcode
      * @param WpBridgeInterface $bridge
      * @param AbstractThemeModule $module
      */
-    public function init(WpBridgeInterface $bridge, $module = null)
+    final public function init(WpBridgeInterface $bridge, $module = null)
     {
         $this->setWpBridge($bridge);
         $this->module = $module;
         $this->getWpBridge()->addShortcode($this->getShortcode(), [$this, 'render']);
+
+        $this->doInit();
+    }
+
+    protected function doInit()
+    {
+        // override in concrete Shortcode class, if required.
     }
 
     /**

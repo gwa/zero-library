@@ -1,32 +1,33 @@
 <?php
 namespace Gwa\Wordpress\Zero\Shortcode\Traits;
 
-use Gwa\Wordpress\Zero\Shortcode\Contract\ShortcodeTemplateRendererInterface;
+use Gwa\Wordpress\Zero\Shortcode\Contract\TemplateRendererInterface;
 
 /**
- * Trait to be used by all shortcodes that use a renderer for rendering.
+ * Trait to be used by all shortcodes that use a template renderer for rendering.
  * Concrete renderer class needs to be set before renderering.
  */
 trait ShortcodeTemplateRendererTrait
 {
     /**
-     * @var ShortcodeTemplateRendererInterface $renderer
+     * @var TemplateRendererInterface $renderer
      */
     private $renderer;
 
     /**
-     * @param ShortcodeTemplateRendererInterface $rendere
-     * r
+     * Call setTemplateRenderer() from doInit().
+     *
+     * @param TemplateRendererInterface $renderer
      * @return ShortcodeTemplateRendererTrait
      */
-    public function setTemplateRenderer(ShortcodeTemplateRendererInterface $renderer)
+    public function setTemplateRenderer(TemplateRendererInterface $renderer)
     {
         $this->renderer = $renderer;
         return $this;
     }
 
     /**
-     * @return ShortcodeTemplateRendererInterface
+     * @return TemplateRendererInterface
      */
     public function getTemplateRenderer()
     {
@@ -34,6 +35,8 @@ trait ShortcodeTemplateRendererTrait
     }
 
     /**
+     * Implement a render() method, that then calls renderTemplate()
+     *
      * @param string $template
      * @param array  $data
      */

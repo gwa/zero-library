@@ -1,5 +1,5 @@
 <?php
-namespace Gwa\Wordpress\Zero\Shortcode\TemplateRenderer;
+namespace Gwa\Wordpress\Zero\Shortcode\Renderer;
 
 use Gwa\Wordpress\Zero\Shortcode\Contract\TemplateRendererInterface;
 

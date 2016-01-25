@@ -1,6 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Theme;
 
+use Exception;
 use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 use TimberMenu;
 use TimberSite;
@@ -232,7 +233,7 @@ class ThemeSettings extends TimberSite
         global $wp_version;
 
         if (version_compare($wp_version, '4.2.1', '<')) {
-            throw new \Exception('Your Wordpress version is too old, please upgrade to a newer version');
+            throw new Exception('Your Wordpress version is too old, please upgrade to a newer version');
         }
 
         $this->getWpBridge()->addThemeSupport('post-formats', ['aside', 'image', 'link', 'quote', 'status']);
@@ -300,7 +301,7 @@ class ThemeSettings extends TimberSite
             'is_singular'          => $this->getWpBridge()->isSingular(),
             'template_uri'         => $this->getWpBridge()->getTemplateDirectoryUri(),
             'single_cat_title'     => $this->getWpBridge()->singleCatTitle('', false),
-            'is_mobile'            => $this->getWpBridge()->wpIsMobile();
+            'is_mobile'            => $this->getWpBridge()->wpIsMobile(),
         ];
     }
 

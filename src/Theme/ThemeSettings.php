@@ -300,6 +300,7 @@ class ThemeSettings extends TimberSite
             'is_singular'          => $this->getWpBridge()->isSingular(),
             'template_uri'         => $this->getWpBridge()->getTemplateDirectoryUri(),
             'single_cat_title'     => $this->getWpBridge()->singleCatTitle('', false),
+            'is_mobile'            => $this->getWpBridge()->wpIsMobile();
         ];
     }
 

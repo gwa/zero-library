@@ -86,7 +86,7 @@ class HookManager
     {
         $action   = 'add' . ucfirst($hookkey);
 
-        $hooks    = is_array($settings['hooks']) ?: [$settings['hooks']];
+        $hooks    = is_array($settings['hooks']) ? $settings['hooks'] : [$settings['hooks']];
 
         $classarg = $settings['class'];
         $method   = isset($settings['method']) ? $settings['method'] : $hookkey;

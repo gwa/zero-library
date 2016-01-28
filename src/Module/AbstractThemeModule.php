@@ -35,8 +35,8 @@ abstract class AbstractThemeModule
 
         $this->registerShortcodes($this->getShortcodeClasses());
 
-        $this->getHookManager()->addActions($this->getActionMap());
-        $this->getHookManager()->addFilters($this->getFilterMap());
+        $this->hookmanager->addActions($this->getActionMap());
+        $this->hookmanager->addFilters($this->getFilterMap());
     }
 
     /* ---------------- */

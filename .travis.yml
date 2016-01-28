@@ -26,3 +26,7 @@ script:
   - vendor/bin/phpunit
   - vendor/bin/php-cs-fixer --diff --dry-run -vv fix
   - php -n security-checker.phar security:check --format=simple
+
+after_script:
+  - if [[ $TRAVIS_PHP_VERSION = "5.4" ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [[ $TRAVIS_PHP_VERSION = "5.4" ]]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/coverage.clover; fi

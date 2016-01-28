@@ -3,7 +3,7 @@
 ![Zero](https://github.com/gwa/zero/blob/master/zero-header.jpg)
 
 > **Note:** This repository contains the core code of the Zero theme. If you want to build an application using Zero, visit the main [Zero repository](https://github.com/gwa/zero).
-> 
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/gwa/zero-library.svg?style=flat-square)](https://packagist.org/packages/gwa/zero-library)
 [![Total Downloads](https://img.shields.io/packagist/dt/gwa/zero-library.svg?style=flat-square)](https://packagist.org/packages/gwa/zero-library)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
@@ -21,7 +21,7 @@
 To get the latest version of Zero theme, simply add the following line to the require block of your `composer.json` file:
 
 ``` bash
-$ composer require gwa/zero:3.*
+$ composer require gwa/zero:4.*
 ```
 
 ## Testing

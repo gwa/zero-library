@@ -30,6 +30,8 @@ $ composer require gwa/zero:3.*
 $ composer test
 ```
 
+## [Wp Conditionals](https://gist.github.com/prisis/15ac6ba80b54ff00d78b)
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.

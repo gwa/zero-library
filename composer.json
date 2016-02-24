@@ -19,7 +19,7 @@
         "php"                                           : ">=5.4.0",
         "jjgrainger/wp-custom-post-type-class"          : "~1.4",
         "jarednova/timber"                              : "~0.22",
-        "roots/soil"                                    : "~3.4.0"
+        "roots/soil"                                    : "~3.6.0"
     },
     "require-dev": {
         "fabpot/php-cs-fixer"                           : "~1.8.1",
@@ -37,7 +37,7 @@
     "extra": {
         "installer-name": "zero-library",
         "branch-alias": {
-            "dev-master"                                : "2.0.0-dev"
+            "dev-master"                                : "2.1.0-dev"
         }
     }
 }

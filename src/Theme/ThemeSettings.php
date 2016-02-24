@@ -122,36 +122,6 @@ class ThemeSettings extends TimberSite
     }
 
     /**
-     * Wrap images with figure tag.
-     * Courtesy of Interconnectit http://interconnectit.com/2175/how-to-remove-p-tags-from-images-in-wordpress/
-     *
-     * @param string $content
-     *
-     * @return string
-     */
-    public function wrapImgInFigure($content)
-    {
-        $callback = function ($matches) {
-            $img = $matches[1];
-            $pattern = '/ class="([^"]+)"/';
-            preg_match($pattern, $img, $imgClass);
-
-            $class = '';
-
-            if (isset($imgClass[1])) {
-                $img   = preg_replace($pattern, '', $img);
-                $class = ' class="' . $imgClass[1] . '"';
-            }
-
-            return '<figure' . $class . '>' . $img . '</figure>';
-        };
-
-        $content = preg_replace_callback('/<p>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s', $callback, $content);
-
-        return $content;
-    }
-
-    /**
      * Init
      */
     public function init()
@@ -169,7 +139,6 @@ class ThemeSettings extends TimberSite
         add_filter('the_generator', [$this, 'removeRssVersion']);
         add_filter('get_image_tag_class', [$this, 'imageTagClassClean'], 0, 4);
         add_filter('get_image_tag', [$this, 'imageEditorRemoveHightAndWidth'], 0, 4);
-        add_filter('the_content', [$this, 'wrapImgInFigure'], 30);
 
         // Should be allways last.
         add_filter('timber_context', [$this, 'addToContext']);

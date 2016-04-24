@@ -17,22 +17,38 @@ abstract class AbstractTheme
     use WpBridgeTrait;
 
     /**
-     * @var array
+     * @var string $environment
+     */
+    private $environment;
+
+    /**
+     * @var array $menus
      */
     private $menus = [];
 
     /**
-     * @var array
+     * @var array $modules
      */
     private $modules = [];
 
     /**
-     * @var HookManager
+     * Set in concrete Theme class to activate language support.
+     * @var string $textdomain
+     */
+    protected $textdomain;
+
+    /**
+     * @var HookManager $hookmanager
      */
     private $hookmanager;
 
-    final public function __construct()
+    /**
+     * @param string $environment
+     */
+    final public function __construct($environment = 'production')
     {
+        $this->environment = $environment;
+
         // set default WpBridge
         $this->setWpBridge(new WpBridge);
 
@@ -48,6 +64,16 @@ abstract class AbstractTheme
         $this->registerModules($this->getModuleClasses(), $this->hookmanager);
 
         $this->getHookManager()->addFilter('timber_context', $this, 'addToContext');
+
+        // Add language support if textdomain is set
+        if (isset($this->textdomain)) {
+            $this->getHookManager()->addAction('after_setup_theme', $this, 'addThemeLangSupport');
+        }
+
+        // Prevent indexing on non-production environments
+        if ($this->environment !== 'production') {
+            $this->getWpBridge()->addFilter('pre_option_blog_public', '__return_false');
+        }
     }
 
     /**
@@ -99,20 +125,19 @@ abstract class AbstractTheme
         foreach ($moduleclasses as $moduleclass) {
             $instance = new $moduleclass;
             $instance->init($this->getWpBridge(), $hookmanager);
+            $instance->setTheme($this);
 
             $this->modules[$moduleclass] = $instance;
         }
     }
 
     /**
-     * @param string $slug
-     * @param string $languagedirectory
      */
-    final protected function addThemeLangSupport($slug, $languagedirectory = 'languages')
+    final public function addThemeLangSupport()
     {
         $this->getWpBridge()->loadThemeTextdomain(
-            $slug,
-            $this->getWpBridge()->getTemplateDirectory() . '/' . $languagedirectory
+            $this->textdomain,
+            $this->getWpBridge()->getTemplateDirectory() . '/languages'
         );
     }
 
@@ -219,5 +244,32 @@ abstract class AbstractTheme
     final public function setMenuFactory(MenuFactoryContract $factory)
     {
         $this->menufactory = $factory;
+    }
+
+    /**
+     * @return string
+     */
+    final public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
+     * @return string|null
+     */
+    final public function getTextDomain()
+    {
+        return $this->textdomain;
+    }
+
+    /**
+     * Convenience method to allow modules and controllers to get translated text from the theme text domain.
+     *
+     * @param string $text
+     * @return string
+     */
+    final public function __($text)
+    {
+        return $this->getWpBridge()->__($text, $this->getTextDomain());
     }
 }

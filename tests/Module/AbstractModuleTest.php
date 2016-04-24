@@ -25,6 +25,16 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Gwa\Wordpress\Zero\Module\AbstractThemeModule', $this->instance);
     }
 
+    public function testBasicModule()
+    {
+        $module = new BasicModule;
+        $module->init($this->bridge, $this->hookmanager);
+
+        $this->assertInternalType('array', $module->getContext());
+        $this->assertTrue(empty($module->getContext()));
+        $this->assertEquals('basic', $module->getSlug());
+    }
+
     public function testInit()
     {
         $this->instance->init($this->bridge, $this->hookmanager);

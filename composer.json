@@ -1,7 +1,7 @@
 {
     "name"       : "gwa/zero-library",
     "type"       : "library",
-    "description": "Php Library for zero template.",
+    "description": "A WordPress development framework.",
     "keywords"   : ["roots", "wordpress", "composer", "wp", "twig", "zero", "library", "zero-library"],
     "license"    : "MIT",
     "homepage"   : "https://github.com/gwa/zero-library",

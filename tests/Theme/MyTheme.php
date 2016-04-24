@@ -5,12 +5,16 @@ use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 
 class MyTheme extends AbstractTheme
 {
+    /**
+     * Used for testing.
+     * @var boolean $isinit
+     */
     public $isinit = false;
+
+    protected $textdomain = 'mytheme';
 
     public function doInit()
     {
-        $this->addThemeLangSupport('mytheme', 'lang');
-
         $this->addImageSize('thumbnail', 300, 300, true);
 
         $this->registerMenus([

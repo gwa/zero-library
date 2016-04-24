@@ -4,23 +4,25 @@ namespace Gwa\Wordpress\Zero\Module;
 use Gwa\Wordpress\WpBridge\Contracts\WpBridgeInterface;
 use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\HookManager;
+use Gwa\Wordpress\Zero\Traits\HasTheme;
 
 /**
  * Extend this class to create a theme module to group WP customizations meaningfully.
  */
 abstract class AbstractThemeModule
 {
-    use WpBridgeTrait;
-
-    /**
-     * @var array
-     */
-    private $instances = [];
+    use WpBridgeTrait, HasTheme;
 
     /**
      * @var HookManager
      */
     private $hookmanager;
+
+    /**
+     * Each module should have a unique slug.
+     * @var string $slug
+     */
+    protected $slug;
 
     /**
      * @param WpBridgeInterface $bridge
@@ -35,8 +37,8 @@ abstract class AbstractThemeModule
 
         $this->registerShortcodes($this->getShortcodeClasses());
 
-        $this->hookmanager->addActions($this->getActionMap());
-        $this->hookmanager->addFilters($this->getFilterMap());
+        $this->getHookManager()->addActions($this->getActionMap());
+        $this->getHookManager()->addFilters($this->getFilterMap());
     }
 
     /* ---------------- */
@@ -111,5 +113,13 @@ abstract class AbstractThemeModule
     final protected function getHookManager()
     {
         return $this->hookmanager;
+    }
+
+    /**
+     * @return string|null
+     */
+    final public function getSlug()
+    {
+        return $this->slug;
     }
 }

@@ -5,6 +5,7 @@ use Gwa\Wordpress\WpBridge\Contracts\WpBridgeAwareInterface;
 use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
 use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
+use Gwa\Wordpress\Zero\Traits\HasTheme;
 use LogicException;
 use TimberLoader;
 
@@ -12,11 +13,7 @@ abstract class AbstractController
 {
     use TimberBridgeTrait;
     use WpBridgeTrait;
-
-    /**
-     * @var AbstractTheme
-     */
-    private $theme;
+    use HasTheme;
 
     protected $cacheType = [
         'none'           => TimberLoader::CACHE_NONE,
@@ -183,23 +180,6 @@ abstract class AbstractController
     protected function getTemplateSlug()
     {
         return $this->getWpBridge()->getPageTemplateSlug();
-    }
-
-    /**
-     * @return AbstractTheme
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
-
-    /**
-     * @param AbstractTheme $theme
-     */
-    public function setTheme(AbstractTheme $theme)
-    {
-        $this->theme = $theme;
-        return $this;
     }
 
     public function addWpBridgeToPosts($posts)

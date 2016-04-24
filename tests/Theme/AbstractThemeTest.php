@@ -24,6 +24,29 @@ class AbstractThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Gwa\Wordpress\Zero\Theme\AbstractTheme', $this->instance);
     }
 
+    public function testGetTextDomain()
+    {
+        $this->assertEquals('mytheme', $this->instance->getTextDomain());
+    }
+
+    public function testTranslation()
+    {
+        $this->assertEquals('foo', $this->instance->__('foo'));
+    }
+
+    public function testAddThemeLangSupport()
+    {
+        $this->bridge->mock()
+            ->shouldReceive('getTemplateDirectory')
+            ->andReturn('/foo')
+            ->once()
+            ->shouldReceive('loadThemeTextdomain')
+            ->with('mytheme', '/foo/languages')
+            ->once()
+            ->mock();
+        $this->instance->addThemeLangSupport();
+    }
+
     public function testInit()
     {
         $this->mockBridgeForInit();
@@ -65,8 +88,6 @@ class AbstractThemeTest extends \PHPUnit_Framework_TestCase
         $this->bridge->mock()
             ->shouldReceive('getTemplateDirectory')
             ->andReturn('/my/path')
-            ->shouldReceive('loadThemeTextdomain')
-            ->with('mytheme', '/my/path/lang')
             ->shouldReceive('addImageSize')
             ->with('thumbnail', 300, 300, true)
             ->shouldReceive('registerNavMenus')

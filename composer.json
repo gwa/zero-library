@@ -41,11 +41,6 @@
             "wp-content/plugins/soil"
         ]
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master"                       : "4.1.0-dev"
-        }
-    },
     "minimum-stability"                        : "dev",
     "prefer-stable"                            : true
 }

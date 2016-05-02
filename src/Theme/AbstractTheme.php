@@ -7,6 +7,7 @@ use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 use Gwa\Wordpress\Zero\Timber\TimberBridge;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
+use Timber\Timber;
 
 /**
  * Extend this class make your theme settings are initialize theme modules.
@@ -117,7 +118,7 @@ abstract class AbstractTheme
      */
     final protected function setViewsDirectory($path)
     {
-        \Timber::$locations = $path;
+        Timber::$locations = $path;
     }
 
     final private function registerModules(array $moduleclasses, HookManager $hookmanager)

@@ -19,10 +19,10 @@
         "php"                                  : ">=5.4",
         "composer/installers"                  : "^1.0",
         "jjgrainger/wp-custom-post-type-class" : "^1.4",
-        "jarednova/timber"                     : "^0.22",
+        "timber/timber"                        : "^1.0.0",
         "webdevstudios/cmb2"                   : "^2.1",
         "gwa/wp-bridge"                        : "^2.0",
-        "roots/soil"                           : "~3.6"
+        "roots/soil"                           : "^3.6"
     },
     "require-dev": {
         "fabpot/php-cs-fixer"                  : "^1.11",

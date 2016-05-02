@@ -7,7 +7,7 @@ use Gwa\Wordpress\Zero\Theme\AbstractTheme;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
 use Gwa\Wordpress\Zero\Traits\HasTheme;
 use LogicException;
-use TimberLoader;
+use Timber\Loader;
 
 abstract class AbstractController
 {
@@ -16,11 +16,11 @@ abstract class AbstractController
     use HasTheme;
 
     protected $cacheType = [
-        'none'           => TimberLoader::CACHE_NONE,
-        'object'         => TimberLoader::CACHE_OBJECT,
-        'transient'      => TimberLoader::CACHE_TRANSIENT,
-        'site.transient' => TimberLoader::CACHE_SITE_TRANSIENT,
-        'default'        => TimberLoader::CACHE_USE_DEFAULT,
+        'none'           => Loader::CACHE_NONE,
+        'object'         => Loader::CACHE_OBJECT,
+        'transient'      => Loader::CACHE_TRANSIENT,
+        'site.transient' => Loader::CACHE_SITE_TRANSIENT,
+        'default'        => Loader::CACHE_USE_DEFAULT,
     ];
 
     /**
@@ -31,7 +31,7 @@ abstract class AbstractController
     /**
      * @var string
      */
-    protected $cacheMode = TimberLoader::CACHE_USE_DEFAULT;
+    protected $cacheMode = Loader::CACHE_USE_DEFAULT;
 
     /**
      * @param string  $mode
@@ -85,7 +85,7 @@ abstract class AbstractController
      * @param string $postClass
      * @return array|boolean|null
      */
-    public function getPost($postClass = '\TimberPost')
+    public function getPost($postClass = '\Timber\Post')
     {
         return $this->getPostForArgs(false, $postClass);
     }
@@ -96,7 +96,7 @@ abstract class AbstractController
      *
      * @return array|boolean|null
      */
-    public function getPostForArgs($args, $postClass = '\TimberPost')
+    public function getPostForArgs($args, $postClass = '\Timber\Post')
     {
         return $this->getTimberBridge()->getPost($args, $postClass);
     }
@@ -107,7 +107,7 @@ abstract class AbstractController
      *
      * @return array|boolean|null
      */
-    public function getPosts($postClass = '\TimberPost', $collection = false)
+    public function getPosts($postClass = '\Timber\Post', $collection = false)
     {
         return $this->getPostsForArgs(false, $postClass, $collection);
     }
@@ -119,7 +119,7 @@ abstract class AbstractController
      *
      * @return array|boolean|null
      */
-    public function getPostsForArgs($args, $postClass = '\TimberPost', $collection = false)
+    public function getPostsForArgs($args, $postClass = '\Timber\Post', $collection = false)
     {
         return $this->getTimberBridge()->getPosts($args, $postClass, $collection);
     }

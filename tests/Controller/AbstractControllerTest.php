@@ -28,7 +28,7 @@ class AbstractControllerTest extends \PHPUnit_Framework_TestCase
         $bridge = new MockeryTimberBridge();
         $bridge->mock()
             ->shouldReceive('getPost')
-            ->with(false, '\Timber\Post')
+            ->with(false, '\TimberPost')
             ->mock();
 
         $controller = new MyController;
@@ -56,7 +56,7 @@ class AbstractControllerTest extends \PHPUnit_Framework_TestCase
         $bridge = new MockeryTimberBridge();
         $bridge->mock()
             ->shouldReceive('getPosts')
-            ->with(false, '\Timber\Post', false)
+            ->with(false, '\TimberPost', false)
             ->mock();
 
         $controller = new MyController;

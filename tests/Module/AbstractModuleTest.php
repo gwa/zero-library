@@ -31,7 +31,10 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase
         $module->init($this->bridge, $this->hookmanager);
 
         $this->assertInternalType('array', $module->getContext());
-        $this->assertTrue(empty($module->getContext()));
+
+        $context = $module->getContext();
+        
+        $this->assertTrue(empty($context));
         $this->assertEquals('basic', $module->getSlug());
     }
 

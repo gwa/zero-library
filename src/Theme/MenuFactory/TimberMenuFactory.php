@@ -1,7 +1,7 @@
 <?php
 namespace Gwa\Wordpress\Zero\Theme\MenuFactory;
 
-use Timber\Menu as TimberMenu;
+use TimberMenu;
 
 class TimberMenuFactory implements MenuFactoryContract
 {

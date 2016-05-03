@@ -7,7 +7,7 @@ use Gwa\Wordpress\Zero\Theme\MenuFactory\MenuFactoryContract;
 use Gwa\Wordpress\Zero\Theme\MenuFactory\TimberMenuFactory;
 use Gwa\Wordpress\Zero\Timber\TimberBridge;
 use Gwa\Wordpress\Zero\Timber\Traits\TimberBridgeTrait;
-use Timber\Timber;
+use Timber;
 
 /**
  * Extend this class make your theme settings are initialize theme modules.

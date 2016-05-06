@@ -8,7 +8,9 @@ Menus are initiated in the Theme class using the `AbstractTheme::registerMenus()
 protected function doInit()
 {
     $this->registerMenus([
-        'header_menu' => 'Header Menu'
+        'header' => 'Header Menu'
     ]);
 }
 ```
+
+A TimberMenu instance will be available in the View context as `menu_header`.

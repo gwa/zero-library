@@ -43,6 +43,25 @@ class MyModule extends AbstractThemeModule
 }
 ```
 
+## Theme aware
+
+Modules are _theme aware_, which means they have access to the Theme instance.
+
+```php
+<?php
+// in a module
+$theme = $this->getTheme();
+
+$environment = $this->getTheme()->getEnvironment();
+$textdomain = $this->getTheme()->getTextDomain();
+
+$i18n_text = $this->getTheme()->__('mytext'); // Shortcut method to use text domain set in theme 
+```
+
+## Customization
+
+To add settings and controls to the WP Customization screen, use the `Gwa\Wordpress\Zero\Traits\AddThemeCustomization` trait.
+
 ## Adding shortcodes
 
 Create a Shortcode class in your Module directory.
@@ -59,3 +78,29 @@ protected function getShortcodeClasses()
 ```
 
 The shortcode is then available.
+
+## Actions
+
+[stub]
+
+## Filters
+
+[stub]
+
+## Context data
+
+Add data to the `array` returned by the `getContext` method, ideally using the _module slug_ as a prefix.
+
+```php
+<?php
+
+/**
+ * @return array
+ */
+public function getContext()
+{
+    return [
+        $this->getSlug() . '_foo' => 'bar';
+    ];
+}
+```

@@ -12,7 +12,7 @@ trait ParseLinkTrait
     protected function parseLink($link)
     {
         if (is_numeric($link)) {
-            return $this->getWpBridge()->getPermalink($idpost);
+            return $this->getWpBridge()->getPermalink($link);
         }
 
         return $link;

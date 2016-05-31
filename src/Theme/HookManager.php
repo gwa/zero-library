@@ -119,11 +119,10 @@ class HookManager
         }
 
         if (!array_key_exists($classarg, $this->instances)) {
-            if ($classarg instanceof WpBridgeAwareInterface) {
-                $class = new $classarg;
+            $class = new $classarg;
+
+            if ($class instanceof WpBridgeAwareInterface) {
                 $class->setWpBridge($this->getWpBridge());
-            } else {
-                $class = new $classarg;
             }
 
             $this->instances[$classarg] = $class;

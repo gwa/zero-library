@@ -2,6 +2,7 @@
 namespace Gwa\Wordpress\Zero\Theme;
 
 use Gwa\Wordpress\WpBridge\Traits\WpBridgeTrait;
+use Gwa\Wordpress\WpBridge\Contracts\WpBridgeAwareInterface;
 
 /**
  * Used to register filters and actions from theme settings and modules.
@@ -118,7 +119,14 @@ class HookManager
         }
 
         if (!array_key_exists($classarg, $this->instances)) {
-            $this->instances[$classarg] = new $classarg;
+            if ($classarg instanceof WpBridgeAwareInterface) {
+                $class = new $classarg;
+                $class->setWpBridge($this->getWpBridge());
+            } else {
+                $class = new $classarg;
+            }
+
+            $this->instances[$classarg] = $class;
         }
 
         return $this->instances[$classarg];

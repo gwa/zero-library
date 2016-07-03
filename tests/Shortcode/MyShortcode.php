@@ -2,9 +2,12 @@
 namespace Gwa\Wordpress\Zero\Test\Shortcode;
 
 use Gwa\Wordpress\Zero\Shortcode\AbstractShortcode;
+use Gwa\Wordpress\Zero\Shortcode\Traits\GetIdsArrayTrait;
 
 class MyShortcode extends AbstractShortcode
 {
+    use GetIdsArrayTrait;
+
     /**
      * @return string
      */
@@ -22,5 +25,14 @@ class MyShortcode extends AbstractShortcode
     {
         $atts = $this->getNormedAtts($atts);
         return $atts['foo'];
+    }
+
+    /**
+     * Method to test GetIdsArrayTrait
+     * @param $ids string
+     */
+    public function getIds($ids)
+    {
+        return $this->getIdsArray($ids);
     }
 }

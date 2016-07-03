@@ -24,6 +24,26 @@ class AbstractThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Gwa\Wordpress\Zero\Theme\AbstractTheme', $this->instance);
     }
 
+    public function testGetEnvironment()
+    {
+        $this->assertEquals('production', $this->instance->getEnvironment());
+    }
+
+    public function testDevelopmentEnvironmentNotIndexable()
+    {
+        $bridge = new MockeryWpBridge;
+
+        $theme = new BasicTheme('development');
+        $theme->setMenuFactory(new MockMenuFactory);
+        $theme->setWpBridge($bridge);
+        $theme->init();
+
+        $filters = $bridge->getAddedFilters();
+
+        $this->assertEquals('timber_context', $filters[0]->filtername);
+        $this->assertEquals('pre_option_blog_public', $filters[1]->filtername);
+    }
+
     public function testGetTextDomain()
     {
         $this->assertEquals('mytheme', $this->instance->getTextDomain());

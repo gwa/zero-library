@@ -21,8 +21,8 @@
         "jjgrainger/wp-custom-post-type-class" : "^1.4",
         "timber/timber"                        : "^0.22.6",
         "webdevstudios/cmb2"                   : "^2.1",
-        "gwa/wp-bridge"                        : "^2.0",
-        "roots/soil"                           : "^3.6"
+        "gwa/wp-bridge"                        : "^2.1",
+        "roots/soil"                           : "~3.6"
     },
     "require-dev": {
         "fabpot/php-cs-fixer"                  : "^1.11",

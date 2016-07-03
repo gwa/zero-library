@@ -28,7 +28,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase
     public function testBasicModule()
     {
         $module = new BasicModule;
-        $module->init($this->bridge, $this->hookmanager);
+        $module->init($this->bridge, [], $this->hookmanager);
 
         $this->assertInternalType('array', $module->getContext());
 
@@ -40,7 +40,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase
 
     public function testInit()
     {
-        $this->instance->init($this->bridge, $this->hookmanager);
+        $this->instance->init($this->bridge, [], $this->hookmanager);
         $this->assertTrue($this->instance->isinit);
     }
 

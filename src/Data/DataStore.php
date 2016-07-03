@@ -37,7 +37,7 @@ abstract class DataStore
     protected function checkKeyExistInDefault($key)
     {
         if (!array_key_exists($key, $this->getDefaults())) {
-            throw new InvalidArgumentException(sprintf('Key[%s] dont exists in defaults array.', $key));
+            throw new InvalidArgumentException(sprintf('Illegal value "[%s]"', $key));
         }
     }
 

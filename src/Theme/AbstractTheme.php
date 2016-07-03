@@ -123,13 +123,26 @@ abstract class AbstractTheme
 
     final private function registerModules(array $moduleclasses, HookManager $hookmanager)
     {
-        foreach ($moduleclasses as $moduleclass) {
-            $instance = new $moduleclass;
-            $instance->init($this->getWpBridge(), $hookmanager);
-            $instance->setTheme($this);
+        foreach ($moduleclasses as $key => $value) {
+            if (is_numeric($key)) {
+                $moduleclass = $value;
+                $settings = [];
+            } else {
+                $moduleclass = $key;
+                $settings = $value;
+            }
 
-            $this->modules[$moduleclass] = $instance;
+            $this->modules[$moduleclass] = $this->initializeModule($moduleclass, $settings, $hookmanager);
         }
+    }
+
+    final private function initializeModule($moduleclass, array $settings, HookManager $hookmanager)
+    {
+        $instance = new $moduleclass;
+        $instance->init($this->getWpBridge(), $settings, $hookmanager);
+        $instance->setTheme($this);
+
+        return $instance;
     }
 
     /**

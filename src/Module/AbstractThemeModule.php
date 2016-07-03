@@ -14,6 +14,11 @@ abstract class AbstractThemeModule
     use WpBridgeTrait, HasTheme;
 
     /**
+     * @var array
+     */
+    private $settings;
+
+    /**
      * @var HookManager
      */
     private $hookmanager;
@@ -26,11 +31,13 @@ abstract class AbstractThemeModule
 
     /**
      * @param WpBridgeInterface $bridge
+     * @param array $settings
      * @param HookManager $hookmanager
      */
-    final public function init(WpBridgeInterface $bridge, HookManager $hookmanager)
+    final public function init(WpBridgeInterface $bridge, array $settings, HookManager $hookmanager)
     {
         $this->setWpBridge($bridge);
+        $this->settings    = $settings;
         $this->hookmanager = $hookmanager;
 
         $this->doInit();

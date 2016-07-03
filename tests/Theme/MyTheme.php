@@ -29,8 +29,15 @@ class MyTheme extends AbstractTheme
      */
     protected function getModuleClasses()
     {
+        // just to test empty parent method
         $classes = parent::getModuleClasses();
+
+        // module without settings
         $classes[] = 'Gwa\Wordpress\Zero\Test\Module\MyModule';
+
+        // module with settings
+        $classes['Gwa\Wordpress\Zero\Test\Module\BasicModule'] = ['foo' => 'bar'];
+
         return $classes;
     }
 

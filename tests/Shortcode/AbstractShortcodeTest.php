@@ -22,4 +22,18 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase
 
         $output = $instance->render(['foo' => 'bar'], '');
     }
+
+    public function testGetIdsArray()
+    {
+        $instance = new MyShortcode;
+        $ids = '1,2,4';
+
+        $arr = $instance->getIds($ids);
+
+        $this->assertEquals(3, count($arr));
+
+        $this->assertEquals(1, $arr[0]);
+        $this->assertEquals(2, $arr[1]);
+        $this->assertEquals(4, $arr[2]);
+    }
 }
